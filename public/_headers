@@ -1,0 +1,7 @@
+# Estado editorial: EM VALIDAÇÃO
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self'; style-src 'self'; script-src 'none'; connect-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'
+  Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+  Referrer-Policy: no-referrer
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
