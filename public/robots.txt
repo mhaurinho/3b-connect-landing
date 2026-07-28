@@ -1,0 +1,3 @@
+# Estado editorial: EM VALIDAÇÃO
+User-agent: *
+Disallow: /
