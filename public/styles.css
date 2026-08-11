@@ -225,6 +225,13 @@ h1 em,.support-copy h2 em,.offer-copy h2 em{
   border-left:1px solid #455049
 }
 .hero-assurances span:first-child{padding-left:0;border-left:0}
+.concept-note{
+  margin-top:1.15rem;
+  color:#9fa9a2;
+  font-size:.62rem;
+  font-weight:700;
+  letter-spacing:.1em
+}
 
 .journey-strip{
   background:var(--white);
@@ -336,6 +343,14 @@ h1 em,.support-copy h2 em,.offer-copy h2 em{
   height:auto;
   border-bottom:1px solid var(--line)
 }
+.visual-label{
+  margin:.55rem 0 .35rem;
+  color:var(--muted);
+  font-size:.58rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-align:right
+}
 .guide-grid{display:grid;grid-template-columns:repeat(3,1fr)}
 .guide{
   min-height:155px;
@@ -410,6 +425,20 @@ h1 em,.support-copy h2 em,.offer-copy h2 em{
   box-shadow:var(--shadow)
 }
 .price-box>p{margin-bottom:.6rem;color:#c8d0ca}
+.pilot-label{
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.15em
+}
+.pilot-badge{
+  margin:.4rem 0 1rem;
+  color:var(--amber);
+  font-family:"Sora",Arial,sans-serif;
+  font-size:clamp(2rem,3.6vw,3.25rem);
+  font-weight:800;
+  letter-spacing:-.045em;
+  line-height:1.05
+}
 .price{
   color:var(--amber);
   font-family:"Sora",Arial,sans-serif;
