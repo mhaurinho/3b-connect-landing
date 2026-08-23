@@ -553,3 +553,8 @@ footer p{margin:0}
   .price-box{padding:2rem 1.35rem}
   .price{font-size:4.3rem}
 }
+
+/* --- FAQ ------------------------------------------------------------------ */
+.practical-copy dl{display:grid;gap:1.1rem;margin:1.5rem 0 0}
+.practical-copy dt{font-weight:700;margin:0}
+.practical-copy dd{margin:0;padding-top:.35rem;border-left:2px solid var(--line);padding-left:1rem;color:var(--ink)}
