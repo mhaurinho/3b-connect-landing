@@ -1,0 +1,12 @@
+KIT DA RECEITA 04 — 3B Connect
+
+Copie para dentro da sua pasta meu-primeiro-bot e aceite substituir:
+
+  meu_bot.py        Versão 3: base de conhecimento, lista de dúvidas e trava de saída.
+  preparar_vps.sh   Atualizado: leva a pasta conhecimento para a VPS.
+  conhecimento/     NOVA pasta com 3 documentos de EXEMPLO (Studio Exemplo, fictício).
+                    Troque o conteúdo pelos do seu negócio.
+
+NÃO substitua o seu persona.txt, memoria.txt nem segredos.txt (este kit nem traz esses).
+
+As dúvidas que o bot não souber responder ficam em dados/duvidas.txt.

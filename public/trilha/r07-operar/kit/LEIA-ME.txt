@@ -1,0 +1,10 @@
+KIT DA RECEITA 07 — 3B Connect
+
+Copie para dentro da sua pasta meu-primeiro-bot e aceite substituir:
+
+  meu_bot.py   Versão 5: conta o gasto estimado da IA, manda /relatorio
+               para o dono e avisa quando o bot foi religado.
+
+Nada muda no segredos.txt, na persona, na memória ou na base.
+Os preços usados na estimativa ficam no topo do meu_bot.py (PRECO_...).
+O valor oficial é sempre o do painel da Anthropic.

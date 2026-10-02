@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operar sem susto</title>
+<meta name="description" content="Receita 07 da 3B Connect: relatório no Telegram, controle de gasto, leitura de logs, atualização, cópia de segurança e como desligar tudo com segurança.">
+<link rel="stylesheet" href="../_comum/receita.css">
+<style>
+.hab { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; }
+.hab div { border-radius: 16px; padding: 12px; font-size: 14px; line-height: 1.4; text-align: center; background: var(--bg); border: 1px solid var(--line); }
+.hab b { display: block; font: 800 14px "Sora", sans-serif; margin: 4px 0; }
+.hab .ico { font-size: 26px; display: block; }
+.agenda td:first-child { font-family: "Source Sans", sans-serif; font-weight: 700; font-size: 16px; width: 26%; }
+@media (max-width: 560px) { .hab { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body data-receita="r07">
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">3B Connect · Receita 07</span>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <span class="progress-label" id="barLabel">0 de 7</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <span class="status">Versão 1 · em validação</span>
+  <div class="crew">
+    <img src="../_comum/img/faisca.png" alt="Faísca, robô amarelo">
+    <img src="../_comum/img/pulso.png" alt="Pulso, robô violeta">
+    <img src="../_comum/img/terra.png" alt="Terra, robô verde">
+  </div>
+  <h1>Operar sem susto: seu bot sob controle</h1>
+  <p class="lead">Colocar no ar é metade do trabalho. A outra metade é saber, em 10 minutos por semana, se está tudo bem: quantas pessoas atendeu, quanto gastou, o que não soube responder e se o servidor está saudável. E ter um plano para quando algo der errado.</p>
+  <div class="facts">
+    <div class="fact"><b>40–50 min</b><span>uma vez, para montar a rotina</span></div>
+    <div class="fact"><b>10 min/semana</b><span>depois disso</span></div>
+    <div class="fact"><b>7 missões</b><span>uma vitória por vez</span></div>
+  </div>
+</section>
+
+<div class="say terra">
+  <img src="../_comum/img/terra-rosto.png" alt="">
+  <div class="bubble"><b class="who">TERRA</b>
+    <p><strong>Antes de começar:</strong> você precisa do bot rodando na VPS (Receita <a href="../r02-bot-24h-na-vps/">02</a>) e do <code>DONO_CHAT_ID</code> preenchido (Receita <a href="../r05-ferramentas/">05</a>, Missão 2). É ele que diz ao bot para quem mandar o relatório.</p>
+  </div>
+</div>
+
+<!-- MISSÃO 0 -->
+<section class="mission" id="m0">
+  <header><div class="num">0</div><div><h2>Os 4 hábitos de quem opera um bot</h2><div class="meta">3 min de leitura</div></div></header>
+
+  <div class="hab">
+    <div><span class="ico">👀</span><b>Olhar</b>Relatório semanal e lista de dúvidas.</div>
+    <div><span class="ico">💵</span><b>Gastar com teto</b>Saber quanto custa e ter limite.</div>
+    <div><span class="ico">🔄</span><b>Atualizar</b>Servidor e bot em dia, com cuidado.</div>
+    <div><span class="ico">💾</span><b>Guardar</b>Cópia de segurança e plano B.</div>
+  </div>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Nesta receita o bot ganha a versão 5, que ajuda você nesses hábitos: ele <strong>conta</strong> o que acontece, <strong>estima</strong> quanto a IA custou a cada resposta, manda o <code>/relatorio</code> no Telegram e <strong>avisa</strong> quando foi religado.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="0"> Conheço os 4 hábitos: olhar, gastar com teto, atualizar, guardar.</label>
+</section>
+
+<!-- MISSÃO 1 -->
+<section class="mission win" id="m1">
+  <header><div class="num">1</div><div><h2>Atualize para a versão 5 🎉</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Baixe o kit:</b> <a href="kit-receita-07.zip" download>kit-receita-07.zip</a> e copie o <code>meu_bot.py</code> (versão 5) para a sua <code>meu-primeiro-bot</code>, substituindo o antigo.</li>
+    <li><b>Mande para a VPS e rode a preparação</b>, como sempre:
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r meu-primeiro-bot root@SEU_IP:/root/</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>bash /root/meu-primeiro-bot/preparar_vps.sh</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Olhe o seu Telegram.</b>
+      <div class="see">Uma mensagem do bot: <em>"🟢 Seu bot foi ligado às 12:55 de 01/10. Se você não religou nada, o servidor pode ter reiniciado: está tudo certo, ele voltou sozinho."</em></div>
+    </li>
+  </ol>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>A partir de agora, se o servidor reiniciar de madrugada, você fica sabendo pela manhã, e sem precisar fazer nada: o bot já voltou sozinho. Se ele ficar caindo e voltando, você recebe no máximo um aviso por hora. 😌</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="1"> Recebi o aviso "Seu bot foi ligado".</label>
+</section>
+
+<!-- MISSÃO 2 -->
+<section class="mission" id="m2">
+  <header><div class="num">2</div><div><h2>O relatório no seu bolso</h2><div class="meta">5 min · e depois, toda semana</div></div></header>
+
+  <ol class="steps">
+    <li><b>No Telegram, mande <code>/relatorio</code> para o bot.</b> Só o dono recebe: para qualquer outra pessoa, o bot responde "Esse comando é só para a equipe".
+      <div class="ill" role="img" aria-label="Ilustração: relatório semanal do bot no Telegram com contadores e gasto estimado">
+        <div class="tip"><img src="../_comum/img/pulso-rosto.png" alt="">Tudo num relance</div>
+        <div class="win"><div class="chat-head"><div class="av">✨</div><div><b>Atendimento Studio Ana</b><small>bot · conversa do dono</small></div></div>
+        <div class="msgs">
+          <div class="msg me">/relatorio</div>
+          <div class="msg glow">📊 Relatório do bot · 01/10/2026 12:55<br><br>ÚLTIMOS 7 DIAS<br>💬 Mensagens de clientes: 2<br>❓ Dúvidas sem resposta: 0<br>🛡️ Travas acionadas: 1<br>📅 Pedidos recebidos: 1<br>✅ Pedidos confirmados: 1<br>💵 Gasto estimado com a IA: US$ 0.02<br><br>⏳ Pedidos esperando você agora: 0</div>
+        </div></div>
+      </div>
+      <p style="font-size:15px;color:var(--muted)">Os números da ilustração vieram de um teste real do script com IA simulada.</p>
+    </li>
+    <li><b>Marque na sua agenda o "ritual de sexta"</b>, 10 minutos:
+      <table class="fix agenda">
+        <tr><td>1. /relatorio</td><td>Mensagens subindo ou caindo? Algum pedido esquecido esperando você?</td></tr>
+        <tr><td>2. Dúvidas</td><td>Leia <code>dados/duvidas.txt</code> (Receita 04, Missão 6) e acrescente respostas na base.</td></tr>
+        <tr><td>3. Travas</td><td>Muitas travas acionadas? Veja quais na Missão 4 e reforce a persona.</td></tr>
+        <tr><td>4. Gasto</td><td>Compare com o painel da Anthropic (Missão 3).</td></tr>
+      </table>
+    </li>
+  </ol>
+
+  <label class="check"><input type="checkbox" data-mission="2"> Recebi o /relatorio e marquei o ritual de sexta na agenda.</label>
+</section>
+
+<!-- MISSÃO 3 -->
+<section class="mission" id="m3">
+  <header><div class="num">3</div><div><h2>Quanto custa o seu bot</h2><div class="meta">10 min · faça a conta com os SEUS números</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O bot tem três contas mensais possíveis: a <strong>VPS</strong> (preço fixo do seu plano), a <strong>IA</strong> (paga por uso) e, se você usa, o <strong>Composio</strong> (veja o plano no painel dele). A da IA é a que varia, e é por isso que o bot passou a estimar.</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Descubra o custo médio por mensagem</b> com o seu relatório: divida o <em>gasto estimado</em> pelo número de <em>mensagens de clientes</em>.</li>
+    <li><b>Estime o mês:</b> custo por mensagem × quantas mensagens você espera por mês.
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>exemplo de conta · use os seus números</span></div><pre>gasto da semana ÷ mensagens da semana = custo por mensagem
+custo por mensagem × mensagens esperadas no mês = gasto do mês</pre></div>
+    </li>
+    <li><b>Compare com o painel oficial.</b> Em <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>, a página de uso mostra o valor cobrado de verdade. A estimativa do bot deve ficar perto. Se ficar muito longe, os preços podem ter mudado: veja o próximo passo.</li>
+    <li><b>Revise o seu limite de gasto</b> (Receita 01, Missão 6) com base nessa conta, com uma folga. O limite é o seu cinto de segurança.</li>
+  </ol>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>A estimativa usa os preços escritos no topo do <code>meu_bot.py</code> (<code>PRECO_ENTRADA</code>, <code>PRECO_SAIDA</code> e os de cache), copiados da tabela da Anthropic de setembro de 2026. Preço muda. Se o painel discordar muito do relatório, confira a página de preços da Anthropic e atualize esses números. <strong>Quem vale é sempre o painel.</strong></p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="3"> Calculei o custo por mensagem e revisei o meu limite.</label>
+</section>
+
+<!-- MISSÃO 4 -->
+<section class="mission" id="m4">
+  <header><div class="num">4</div><div><h2>Ler os logs como um profissional</h2><div class="meta">5 min</div></div></header>
+
+  <p>O log é o diário do bot: tudo o que os robôs falam no terminal fica guardado no servidor. Quatro comandos resolvem quase tudo (todos <span class="where vps">na VPS</span>):</p>
+
+  <h3 style="margin-top:14px">O que aconteceu hoje?</h3>
+  <div class="cmd vps"><pre>journalctl -u meu-bot --since today -o cat</pre><button type="button" data-copy>Copiar</button></div>
+
+  <h3 style="margin-top:14px">Quais travas foram acionadas?</h3>
+  <div class="cmd vps"><pre>journalctl -u meu-bot --since "7 days ago" -o cat | grep "🛡️"</pre><button type="button" data-copy>Copiar</button></div>
+  <p style="font-size:16px">Cada linha diz qual trava agiu e por quê. Se for sempre a mesma, por exemplo "a IA ia dizer que está confirmado", reforce essa regra na persona.</p>
+
+  <h3 style="margin-top:14px">Teve erro?</h3>
+  <div class="cmd vps"><pre>journalctl -u meu-bot --since "7 days ago" -o cat | grep -iE "erro|não consegui|perdi a conexão"</pre><button type="button" data-copy>Copiar</button></div>
+  <p style="font-size:16px">"Perdi a conexão… tento de novo" de vez em quando é normal (a internet oscila). Muitas seguidas pedem atenção.</p>
+
+  <h3 style="margin-top:14px">Quantas vezes o bot religou?</h3>
+  <div class="cmd vps"><pre>journalctl -u meu-bot --since "7 days ago" -o cat | grep -c "está ligado e ouvindo"</pre><button type="button" data-copy>Copiar</button></div>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O <code>grep</code> é um "filtro": mostra só as linhas que têm a palavra procurada. O <code>-c</code> conta em vez de mostrar. Já o log não guarda número de cartão, CPF nem telefone, porque eles são mascarados antes (Receita 03).</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="4"> Rodei os 4 comandos e sei o que cada um mostra.</label>
+</section>
+
+<!-- MISSÃO 5 -->
+<section class="mission" id="m5">
+  <header><div class="num">5</div><div><h2>Atualizar sem quebrar</h2><div class="meta">5 min · uma vez por mês</div></div></header>
+
+  <h3>O sistema da VPS</h3>
+  <p>O Ubuntu já instala sozinho as correções de segurança (é o serviço <code>unattended-upgrades</code>). Confira se ele está ativo:</p>
+  <div class="cmd vps"><pre>systemctl is-active unattended-upgrades</pre><button type="button" data-copy>Copiar</button></div>
+  <div class="see"><code>active</code></div>
+  <p>Algumas correções só valem depois de reiniciar o servidor. Para saber se é o caso:</p>
+  <div class="cmd vps"><pre>cat /var/run/reboot-required 2>/dev/null || echo "Não precisa reiniciar"</pre><button type="button" data-copy>Copiar</button></div>
+  <p>Se aparecer <code>*** System restart required ***</code>, rode <code>reboot</code> num horário calmo. O bot volta sozinho, e você recebe o aviso "Seu bot foi ligado".</p>
+  <div class="guard"><div><strong>A VPS tem site ou outros sistemas?</strong> Então o <code>reboot</code> derruba tudo por um minuto. Escolha um horário de pouco movimento.</div></div>
+
+  <h3 style="margin-top:18px">O bot</h3>
+  <ul class="tick">
+    <li><strong>Código novo</strong> (uma versão nova do <code>meu_bot.py</code>): teste no PC primeiro e só depois mande para a VPS.</li>
+    <li><strong>Peças da IA e do Composio:</strong> o bot usa as versões instaladas no dia da preparação, e isso é de propósito. Não atualize "porque saiu versão nova". Atualize quando um kit da 3B pedir, ou para corrigir um problema.</li>
+  </ul>
+
+  <label class="check"><input type="checkbox" data-mission="5"> Conferi o unattended-upgrades e sei quando reiniciar.</label>
+</section>
+
+<!-- MISSÃO 6 -->
+<section class="mission" id="m6">
+  <header><div class="num">6</div><div><h2>Cópia de segurança e plano B</h2><div class="meta">10 min · uma vez por mês</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O que é seu e não existe em outro lugar: a pasta <code>dados</code> da VPS (memória dos clientes, pedidos, contadores e lista de dúvidas). O resto (bot, persona, base) já está no seu PC.</p>
+    </div>
+  </div>
+
+  <h3>Fazer a cópia</h3>
+  <ol class="steps">
+    <li><b>No PC, abra o terminal na pasta onde quer guardar</b> e traga a pasta <code>dados</code> (troque a data):
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r root@SEU_IP:/home/bot/meu-primeiro-bot/dados ./backup-dados-2026-10-01</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Guarde num lugar protegido</b>: a cópia tem dados pessoais de clientes. Pendrive esquecido na gaveta e pasta compartilhada estão fora.</li>
+  </ol>
+
+  <h3 style="margin-top:14px">Restaurar (se um dia precisar)</h3>
+  <ol class="steps">
+    <li><b>Mande a cópia de volta:</b>
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r ./backup-dados-2026-10-01 root@SEU_IP:/root/restaurar-dados</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Coloque no lugar e religue:</b>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>systemctl stop meu-bot && rm -rf /home/bot/meu-primeiro-bot/dados && cp -r /root/restaurar-dados /home/bot/meu-primeiro-bot/dados && chown -R bot:bot /home/bot/meu-primeiro-bot/dados && chmod 700 /home/bot/meu-primeiro-bot/dados && systemctl start meu-bot && rm -rf /root/restaurar-dados</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see">O aviso "Seu bot foi ligado" no Telegram e o <code>/relatorio</code> com os números da cópia.</div>
+    </li>
+  </ol>
+  <p style="font-size:15px;color:var(--muted)">Esses passos foram testados de verdade: apagamos os dados num Ubuntu limpo de propósito, restauramos e conferimos os registros.</p>
+
+  <h3 style="margin-top:14px">Plano B: a VPS sumiu</h3>
+  <p>Contrate outra VPS e repita a Receita 02 com a mesma pasta do PC. Depois restaure a cópia da pasta <code>dados</code>. Em meia hora o bot está de volta, lembrando dos clientes.</p>
+
+  <label class="check"><input type="checkbox" data-mission="6"> Fiz a minha primeira cópia de segurança e guardei em lugar protegido.</label>
+</section>
+
+<!-- MISSÃO 7 -->
+<section class="mission" id="m7">
+  <header><div class="num">7</div><div><h2>Trocar chaves e desligar de vez</h2><div class="meta">consulte quando precisar</div></div></header>
+
+  <h3>Uma chave vazou (ou pode ter vazado)</h3>
+  <table class="fix">
+    <tr><th>Chave</th><th>Como trocar</th></tr>
+    <tr><td>Token do Telegram</td><td>BotFather → <code>/revoke</code> → escolha o bot → copie o novo para o <code>segredos.txt</code>.</td></tr>
+    <tr><td>Chave da IA</td><td>Painel da Anthropic → API Keys → crie uma nova e <strong>apague a antiga</strong>.</td></tr>
+    <tr><td>Chave do Composio</td><td>Painel do Composio → API Keys → crie uma nova e apague a antiga.</td></tr>
+    <tr><td>Acesso ao Google</td><td>No painel do Composio, desconecte a conta; ou, na sua Conta Google, em segurança, remova o acesso de terceiros.</td></tr>
+  </table>
+  <p>Depois de trocar no <code>segredos.txt</code>: <code>scp</code> da pasta e <code>preparar_vps.sh</code>, como sempre.</p>
+
+  <h3 style="margin-top:14px">Desligar de vez</h3>
+  <div class="guard"><div><strong>Isto apaga o bot e a memória dos clientes na VPS, sem volta.</strong> Faça antes a cópia da Missão 6, se quiser guardar algo, e avise os clientes que o atendimento mudou.</div></div>
+  <span class="where vps">na VPS</span>
+  <div class="cmd vps"><pre>systemctl disable --now meu-bot && rm -f /etc/systemd/system/meu-bot.service && systemctl daemon-reload && userdel -r bot && rm -rf /root/meu-primeiro-bot</pre><button type="button" data-copy>Copiar</button></div>
+  <p style="font-size:15px;color:var(--muted)">Se aparecer <code>userdel: bot mail spool (/var/mail/bot) not found</code>, é só um aviso: o usuário foi removido mesmo assim.</p>
+  <p>Depois, no BotFather, mande <code>/deletebot</code> se quiser apagar o bot do Telegram, e revogue as chaves da tabela acima.</p>
+
+  <label class="check"><input type="checkbox" data-mission="7"> Sei trocar cada chave e desligar tudo com segurança.</label>
+</section>
+
+<section class="mission" id="final">
+  <header><div class="num">✓</div><div><h2>Teste de conclusão</h2></div></header>
+  <p>Você concluiu a Receita 07 quando:</p>
+  <ul class="tick">
+    <li>recebeu o aviso "Seu bot foi ligado" e o <code>/relatorio</code>;</li>
+    <li>sabe quanto o bot custa por mensagem e revisou o limite;</li>
+    <li>tem uma cópia da pasta <code>dados</code> num lugar protegido;</li>
+    <li>o ritual de sexta está na sua agenda.</li>
+  </ul>
+
+  <h3 style="margin-top:22px">Se aparecer → faça isto</h3>
+  <table class="fix">
+    <tr><th>Se aparecer</th><th>Faça isto</th></tr>
+    <tr><td>Não recebi o aviso "Seu bot foi ligado"</td><td>Falta o <code>DONO_CHAT_ID</code> no <code>segredos.txt</code> (Receita 05, Missão 2). Depois de preencher, mande a pasta e rode a preparação de novo.</td></tr>
+    <tr><td>/relatorio responde "Esse comando é só para a equipe"</td><td>Você mandou de uma conta que não é a do <code>DONO_CHAT_ID</code>. Mande <code>/meuid</code> e compare os números.</td></tr>
+    <tr><td>Gasto do relatório muito diferente do painel</td><td>Os preços mudaram. Atualize os <code>PRECO_…</code> no topo do <code>meu_bot.py</code> com a tabela atual da Anthropic. Quem vale é o painel.</td></tr>
+    <tr><td>*** System restart required ***</td><td>Rode <code>reboot</code> num horário calmo. O bot volta sozinho.</td></tr>
+    <tr><td>userdel: bot mail spool (/var/mail/bot) not found</td><td>Nada: é só um aviso, o usuário foi removido.</td></tr>
+    <tr><td>Recebo vários avisos de "ligado" por dia</td><td>O bot está caindo e voltando. Veja o motivo com os comandos da Missão 4 (procure "Terra" e "erro").</td></tr>
+  </table>
+
+  <h3 style="margin-top:22px">Checklist da operação</h3>
+  <ul class="tick">
+    <li>Toda semana: <code>/relatorio</code>, lista de dúvidas, travas.</li>
+    <li>Todo mês: gasto no painel, reinício se pedido, cópia de segurança.</li>
+    <li>Sempre: chave vazou, chave trocada.</li>
+  </ul>
+</section>
+
+<div class="say faisca">
+  <img src="../_comum/img/faisca-rosto.png" alt="">
+  <div class="bubble"><b class="who">FAÍSCA · VOCÊ CHEGOU AO FIM DA TRILHA! 🏆</b>
+    <p>Você tem um agente que atende 24 horas, lembra dos clientes, responde com os seus documentos sem inventar, agenda com a sua aprovação, tem vídeo de divulgação e está sob controle. Isso é mais do que muita empresa grande tem. Volte à <a href="../">trilha</a> sempre que precisar revisar um passo.</p>
+  </div>
+</div>
+
+<footer>3B Connect · Receita 07 · EM VALIDAÇÃO · versão 1. Testada em Ubuntu e numa VPS real; ainda não no Windows.<br>Faísca, Pulso e Terra são personagens, não pessoas.<br><a href="../caminho-das-pedras/">🛟 Deu erro? Caminho das pedras</a> · <a href="../">Trilha completa</a></footer>
+</main>
+
+<script src="../_comum/receita.js"></script>
+</body>
+</html>

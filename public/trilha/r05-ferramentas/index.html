@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bot com ferramentas</title>
+<meta name="description" content="Receita 05 da 3B Connect: o bot prepara agendamentos, você aprova com um toque no Telegram e o evento entra no seu Google Agenda pelo Composio.">
+<link rel="stylesheet" href="../_comum/receita.css">
+<style>
+.steps4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; }
+.steps4 div { border-radius: 16px; padding: 12px; font-size: 14px; line-height: 1.4; text-align: center; }
+.steps4 b { display: block; font: 800 14px "Sora", sans-serif; margin: 4px 0; }
+.steps4 .ico { font-size: 26px; display: block; }
+.steps4 .s1 { background: var(--violet-soft); } .steps4 .s2 { background: var(--amber-soft); }
+.steps4 .s3 { background: var(--green-soft); } .steps4 .s4 { background: var(--bg); border: 1px solid var(--line); }
+.btns { display: flex; gap: 6px; margin-top: 6px; }
+.btns span { flex: 1; text-align: center; font: 700 13px "Source Sans", sans-serif; padding: 7px; border-radius: 9px; background: color-mix(in srgb, var(--violet-soft) 70%, var(--card)); color: var(--violet-ink); }
+.cal { display: grid; grid-template-columns: 48px 1fr; font-size: 13px; }
+.cal .h { color: var(--muted); padding: 6px 4px; border-top: 1px solid var(--line); }
+.cal .slot { border-top: 1px solid var(--line); padding: 3px; }
+.cal .ev { background: var(--green); color: #fff; border-radius: 8px; padding: 6px 8px; font-weight: 700; }
+@media (max-width: 560px) { .steps4 { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body data-receita="r05">
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">3B Connect · Receita 05</span>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <span class="progress-label" id="barLabel">0 de 7</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <span class="status">Versão 1 · em validação</span>
+  <div class="crew">
+    <img src="../_comum/img/faisca.png" alt="Faísca, robô amarelo">
+    <img src="../_comum/img/pulso.png" alt="Pulso, robô violeta">
+    <img src="../_comum/img/terra.png" alt="Terra, robô verde">
+  </div>
+  <h1>Seu bot agenda clientes, e quem aprova é você</h1>
+  <p class="lead">O cliente pede um horário. O bot prepara o pedido e manda para você com dois botões: ✅ Confirmar ou ❌ Recusar. Um toque, e o evento entra no seu Google Agenda e o cliente recebe a confirmação. Sem o seu toque, nada acontece.</p>
+  <div class="facts">
+    <div class="fact"><b>50–60 min</b><span>com a conexão do Google</span></div>
+    <div class="fact"><b>7 missões</b><span>uma vitória por vez</span></div>
+    <div class="fact"><b>Composio</b><span>uma conta no serviço</span></div>
+  </div>
+</section>
+
+<div class="say terra">
+  <img src="../_comum/img/terra-rosto.png" alt="">
+  <div class="bubble"><b class="who">TERRA</b>
+    <p><strong>Antes de começar:</strong> conclua as Receitas <a href="../r01-bot-telegram-no-pc/">01</a> a <a href="../r04-base-de-conhecimento/">04</a>. O bot precisa da base de conhecimento para saber quais serviços existem, quanto tempo cada um dura e qual é o horário de atendimento.</p>
+  </div>
+</div>
+
+<div class="os-pick">
+  <div><b>Qual computador você está usando?</b><br><span style="color:var(--muted);font-size:15px">Os comandos mudam um pouco. A página se ajusta.</span></div>
+  <div class="os-switch" role="group" aria-label="Sistema operacional">
+    <button type="button" data-set-os="win" aria-pressed="true">Windows</button>
+    <button type="button" data-set-os="mac" aria-pressed="false">Mac</button>
+    <button type="button" data-set-os="linux" aria-pressed="false">Linux</button>
+  </div>
+</div>
+
+<!-- MISSÃO 0 -->
+<section class="mission" id="m0">
+  <header><div class="num">0</div><div><h2>Mãos com rédea</h2><div class="meta">4 min de leitura</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Até agora, o bot só <em>falava</em>. Uma <strong>ferramenta</strong> é quando ele <em>faz</em> algo no mundo: cria um evento, manda um e-mail, escreve numa planilha. Fazer algo errado é bem pior do que falar algo errado. Por isso, toda ação de verdade passa por você.</p>
+    </div>
+  </div>
+
+  <div class="steps4">
+    <div class="s1"><span class="ico">💬</span><b>1. Conversa</b>O cliente diz o que quer e quando.</div>
+    <div class="s2"><span class="ico">📝</span><b>2. Prepara</b>O bot monta o pedido, sem confirmar nada.</div>
+    <div class="s3"><span class="ico">👆</span><b>3. Você aprova</b>✅ ou ❌ no seu Telegram.</div>
+    <div class="s4"><span class="ico">📆</span><b>4. Executa</b>O evento entra na agenda e o cliente é avisado.</div>
+  </div>
+
+  <h3 style="margin-top:16px">E o Composio, o que é?</h3>
+  <p>Uma <strong>central de tomadas</strong>: você conecta o seu Google Agenda (ou Gmail, Planilhas e, segundo o Composio, mais de mil apps) uma vez só, e o seu bot passa a usar essas tomadas por ele. <strong>O bot nunca vê a sua senha do Google</strong>: quem guarda a autorização é o Composio, e você pode desligá-la quando quiser.</p>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Quatro travas de código protegem esta receita:</p>
+      <p>1️⃣ <strong>Só o dono aprova:</strong> o bot confere quem apertou o botão. 2️⃣ <strong>Sem promessa falsa:</strong> se a IA disser "está confirmado" antes da sua aprovação, a frase é trocada. 3️⃣ <strong>Sem clique duplo:</strong> apertar ✅ duas vezes não cria dois eventos. 4️⃣ <strong>Sem bagunça:</strong> data no passado é recusada, e cada cliente pode ter no máximo 2 pedidos esperando.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="0"> Entendi: o bot prepara, eu aprovo, a ferramenta executa.</label>
+</section>
+
+<!-- MISSÃO 1 -->
+<section class="mission" id="m1">
+  <header><div class="num">1</div><div><h2>Atualize o bot para a versão 4</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Pare o bot da VPS</b> (um bot, um lugar):
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>systemctl stop meu-bot</pre><button type="button" data-copy>Copiar</button></div>
+      Depois <code>exit</code>.
+    </li>
+    <li><b>Baixe o kit:</b> <a href="kit-receita-05.zip" download>kit-receita-05.zip</a>. Ele traz o <code>meu_bot.py</code> (versão 4), o <code>conectar_agenda.py</code> (novo) e o <code>preparar_vps.sh</code> atualizado.</li>
+    <li><b>Copie os três para a <code>meu-primeiro-bot</code></b> e aceite substituir. Os seus <code>persona.txt</code>, <code>memoria.txt</code>, <code>conhecimento</code> e <code>segredos.txt</code> ficam intactos.</li>
+    <li><b>Abra o <code>segredos.txt</code> e cole no final</b> as três linhas novas, ainda vazias:
+      <div class="cmd multi"><pre>DONO_CHAT_ID=
+COMPOSIO_API_KEY=
+COMPOSIO_USER_ID=dono</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+  </ol>
+
+  <label class="check"><input type="checkbox" data-mission="1"> Arquivos novos na pasta e três linhas novas no segredos.txt.</label>
+</section>
+
+<!-- MISSÃO 2 -->
+<section class="mission" id="m2">
+  <header><div class="num">2</div><div><h2>Diga ao bot quem é o dono</h2><div class="meta">3 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Ligue o bot no PC:</b>
+      <span class="where pc">no seu PC</span>
+      <div data-os="win"><div class="cmd"><pre>python meu_bot.py</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div data-os="mac linux"><div class="cmd"><pre>.venv/bin/python meu_bot.py</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div class="see"><code>Agendamento desligado: falta DONO_CHAT_ID no segredos.txt (mande /meuid para descobrir).</code></div>
+    </li>
+    <li><b>No Telegram, mande <code>/meuid</code> para o seu bot.</b>
+      <div class="see">"O seu número de conversa é: 123456789", seguido da linha pronta para colar.</div>
+    </li>
+    <li><b>Cole o número no <code>segredos.txt</code></b>, na linha <code>DONO_CHAT_ID=</code>. Salve, desligue o bot e ligue de novo.
+      <div class="see"><code>Agendamento ligado: pedidos vão para você aprovar (sem Google Agenda: falta COMPOSIO_API_KEY).</code></div>
+    </li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O seu número de conversa não é o seu telefone: é um código que o Telegram dá a cada pessoa. Com ele, o bot sabe para quem mandar os pedidos e de quem aceitar os botões.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="2"> Vi "Agendamento ligado" no terminal.</label>
+</section>
+
+<!-- MISSÃO 3 -->
+<section class="mission win" id="m3">
+  <header><div class="num">3</div><div><h2>Aprove o primeiro pedido 🎉</h2><div class="meta">5 min · ainda sem Google Agenda</div></div></header>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>Dica: peça para um amigo fazer o papel de cliente, mandando mensagem para o seu bot pelo celular dele. Se for testar sozinho, tudo bem: você é cliente e dono ao mesmo tempo, e o cartão aparece na mesma conversa.</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Como cliente, peça um horário</b> que caiba no seu atendimento. Ex.: "quero marcar um ensaio de família no próximo sábado às 9h, meu nome é Ana".
+      <div class="see">O cliente recebe "Seu pedido está com a equipe…" e <strong>você</strong> recebe um cartão com dois botões.</div>
+      <div class="ill" role="img" aria-label="Ilustração: cartão de pedido que chega para o dono, com botões Confirmar e Recusar">
+        <div class="tip"><img src="../_comum/img/terra-rosto.png" alt="">Só você vê estes botões</div>
+        <div class="win"><div class="chat-head"><div class="av">✨</div><div><b>Atendimento Studio Ana</b><small>bot · conversa do dono</small></div></div>
+        <div class="msgs">
+          <div class="msg glow">📅 Novo pedido #1<br><br>Cliente: Ana<br>Serviço: Ensaio de família<br>Quando: sábado, 10/10/2026 às 09:00 (2h)<br><br>Confirmar coloca na sua agenda e avisa o cliente.
+            <div class="btns"><span>✅ Confirmar</span><span>❌ Recusar</span></div>
+          </div>
+        </div></div>
+      </div>
+    </li>
+    <li><b>Aperte ✅ Confirmar.</b>
+      <div class="see">O cartão vira "✅ Pedido #1 confirmado. 📝 Agenda não conectada: anote na sua agenda." e o cliente recebe "✅ Confirmado! …".</div>
+    </li>
+  </ol>
+
+  <div class="term"><div class="bar"><i></i><i></i><i></i><span>saída real do script · testada com IA simulada</span></div><pre>   📩 Ana mandou: oi, quero marcar ensaio de família sábado 10/10 às 9h
+<span class="p">🟣 Pulso: 📅 Pedido #1 enviado para você aprovar no Telegram.</span>
+<span class="t">🟢 Terra: 🛡️ Trava de saída: a IA ia dizer que está confirmado, mas você não aprovou nada.</span>
+<span class="t">   Troquei a frase.</span>
+<span class="p">🟣 Pulso: ✅ Você confirmou o pedido #1.</span></pre></div>
+  <p style="font-size:15px;color:var(--muted)">Viu a Terra no meio? No teste, a IA tentou responder "Seu horário está confirmado" antes da aprovação. A trava pegou e trocou a frase. É para isso que ela existe.</p>
+
+  <details class="oops"><summary>Perdi o cartão no meio da conversa</summary>
+    <div>Mande <code>/pedidos</code> para o bot: ele reenvia todos os cartões que ainda esperam aprovação. Só o dono consegue usar esse comando.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="3"> Aprovei um pedido e o cliente recebeu a confirmação.</label>
+</section>
+
+<!-- MISSÃO 4 -->
+<section class="mission" id="m4">
+  <header><div class="num">4</div><div><h2>Conecte o seu Google Agenda</h2><div class="meta">10 min · uma vez só</div></div></header>
+
+  <ol class="steps">
+    <li><b>Crie uma conta em <a href="https://composio.dev" target="_blank" rel="noopener">composio.dev</a></b> (pode entrar com o Google).</li>
+    <li><b>Crie uma chave só para o bot:</b> no painel, procure <em>Settings</em> → <em>API Keys</em> e gere uma chave nova. Copie e cole no <code>segredos.txt</code>, na linha <code>COMPOSIO_API_KEY=</code>.
+      <div class="ill" role="img" aria-label="Ilustração genérica de painel com uma chave de API criada">
+        <div class="tip"><img src="../_comum/img/terra-rosto.png" alt="">Mesma regra do token: só no segredos.txt</div>
+        <div class="win"><div class="win-top"><i></i><i></i><i></i> Painel do Composio · API Keys</div><div class="win-body">
+          <div class="limit glow"><span>meu-bot-3b</span><span style="font-family:ui-monospace,monospace;font-size:13px">ak_••••••••••••</span></div>
+          <div class="limit"><span>➕ Nova chave</span><span>›</span></div>
+        </div></div>
+      </div>
+    </li>
+    <li><b>Instale a peça do Composio:</b>
+      <span class="where pc">no seu PC</span>
+      <div data-os="win"><div class="cmd"><pre>python -m pip install composio</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div data-os="mac linux"><div class="cmd"><pre>.venv/bin/python -m pip install composio</pre><button type="button" data-copy>Copiar</button></div></div>
+    </li>
+    <li><b>Rode o conector:</b>
+      <span class="where pc">no seu PC</span>
+      <div data-os="win"><div class="cmd"><pre>python conectar_agenda.py</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div data-os="mac linux"><div class="cmd"><pre>.venv/bin/python conectar_agenda.py</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div class="see">A Faísca mostra um link. Abra no navegador, entre com a conta Google <strong>da sua agenda</strong> e permita. No terminal: <code>Agenda conectada para o usuário 'dono'! ✅</code></div>
+    </li>
+    <li><b>Reinicie o bot.</b>
+      <div class="see"><code>Agendamento ligado: pedidos vão para você aprovar, e o aprovado vai para o Google Agenda.</code></div>
+    </li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Uma curiosidade técnica: o bot usa uma <strong>versão fixa</strong> da ferramenta de agenda (<code>20260915_00</code>). Se o Composio mudar a ferramenta amanhã, o seu bot continua igual até você decidir atualizar. Ferramenta que muda sozinha é ferramenta que quebra sem aviso.</p>
+    </div>
+  </div>
+
+  <details class="oops"><summary>"O Composio recusou o pedido (AuthenticationError)"</summary>
+    <div>A chave foi copiada pela metade ou é de outro projeto. Gere outra no painel e substitua no <code>segredos.txt</code>.</div>
+  </details>
+  <details class="oops"><summary>"Não vi a autorização em 5 minutos"</summary>
+    <div>O link expirou. Rode o <code>conectar_agenda.py</code> de novo e use o link novo.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="4"> O conector disse "Agenda conectada".</label>
+</section>
+
+<!-- MISSÃO 5 -->
+<section class="mission" id="m5">
+  <header><div class="num">5</div><div><h2>Do Telegram para a agenda</h2><div class="meta">5 min · o teste completo</div></div></header>
+
+  <ol class="steps">
+    <li><b>Peça um horário como cliente e aprove como dono</b>, igual à Missão 3.
+      <div class="see">O cartão termina com <code>📆 Já está na sua agenda.</code></div>
+    </li>
+    <li><b>Abra o seu Google Agenda.</b>
+      <div class="ill" role="img" aria-label="Ilustração genérica de agenda com o evento do ensaio criado no sábado">
+        <div class="tip"><img src="../_comum/img/faisca-rosto.png" alt="">Apareceu sozinho! 📆</div>
+        <div class="win"><div class="win-top"><i></i><i></i><i></i> Agenda · sábado, 10 de outubro</div>
+          <div class="cal">
+            <div class="h">08:00</div><div class="slot"></div>
+            <div class="h">09:00</div><div class="slot"><div class="ev glow">Ensaio de família — Ana<br><small style="font-weight:400">09:00 – 11:00 · Pedido #2 aprovado pelo dono</small></div></div>
+            <div class="h">11:00</div><div class="slot"></div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ol>
+
+  <details class="oops"><summary>"⚠️ não consegui criar o evento na agenda"</summary>
+    <div>O pedido <strong>não se perde</strong>: ele volta para a fila e o cliente não recebe confirmação falsa. Rode o <code>conectar_agenda.py</code> de novo para conferir a conexão e mande <code>/pedidos</code> para aprovar outra vez.</div>
+  </details>
+  <details class="oops"><summary>O evento ficou no horário errado</summary>
+    <div>O bot usa o horário de Brasília. Se o seu negócio é em outro fuso, troque <code>FUSO</code> e <code>FUSO_NOME</code> no topo do <code>meu_bot.py</code>, ou peça ajuda ao suporte da 3B.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="5"> O evento apareceu no meu Google Agenda.</label>
+</section>
+
+<!-- MISSÃO 6 -->
+<section class="mission" id="m6">
+  <header><div class="num">6</div><div><h2>A prova das rédeas</h2><div class="meta">10 min · tente fazer o bot passar por cima de você</div></div></header>
+
+  <table class="fix">
+    <tr><th>Faça isto</th><th>O bot passou se…</th></tr>
+    <tr><td>peça um horário e pergunte "já está confirmado?" antes de aprovar</td><td>Diz que a confirmação chega na conversa. Nunca "está confirmado".</td></tr>
+    <tr><td>peça a um amigo para apertar ✅ num cartão encaminhado</td><td>O amigo vê "Só a equipe pode aprovar pedidos" e nada acontece.</td></tr>
+    <tr><td>aperte ✅ duas vezes rapidinho</td><td>Um evento só na agenda. O segundo toque diz "já foi resolvido".</td></tr>
+    <tr><td>peça um horário para ontem</td><td>O bot pede outro horário, sem nem chamar você.</td></tr>
+    <tr><td>faça 3 pedidos seguidos sem aprovar</td><td>O terceiro é recusado: "a equipe responde em breve".</td></tr>
+    <tr><td>aperte ❌ Recusar</td><td>O cliente recebe "a equipe não conseguiu confirmar… quer sugerir outro?".</td></tr>
+  </table>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Repare no padrão, porque ele serve para qualquer ferramenta que você ligar no futuro (e-mail, planilha, cobrança): <strong>a IA nunca executa direto.</strong> Ela prepara, o código confere, uma pessoa aprova e só então o código executa. Se um dia alguém te vender um agente que "faz tudo sozinho", lembre desta receita.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="6"> O bot passou nas 6 provas.</label>
+</section>
+
+<!-- MISSÃO 7 -->
+<section class="mission" id="m7">
+  <header><div class="num">7</div><div><h2>Leve para a VPS</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Desligue o bot no PC</b> (<kbd>Ctrl</kbd> + <kbd>C</kbd>).</li>
+    <li><b>Mande a pasta e rode a preparação</b>:
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r meu-primeiro-bot root@SEU_IP:/root/</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>bash /root/meu-primeiro-bot/preparar_vps.sh</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see">Nas últimas falas do bot: <code>Agendamento ligado: … vai para o Google Agenda.</code> A etapa 4 demora um pouco mais desta vez, porque o script instala a peça do Composio.</div>
+    </li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Você não precisa rodar o <code>conectar_agenda.py</code> na VPS. A autorização do Google fica no Composio, ligada ao usuário <code>dono</code>. O bot da VPS usa a mesma, só com a chave.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="7"> Aprovei um pedido com o bot rodando na VPS.</label>
+</section>
+
+<section class="mission" id="final">
+  <header><div class="num">✓</div><div><h2>Teste de conclusão</h2></div></header>
+  <p>Você concluiu a Receita 05 quando:</p>
+  <ul class="tick">
+    <li>um pedido feito pelo celular de outra pessoa chega para você com os botões;</li>
+    <li>ao aprovar, o evento aparece no seu Google Agenda e o cliente é avisado;</li>
+    <li>o bot passou nas 6 provas das rédeas;</li>
+    <li>você sabe explicar "prepara → aprova → executa".</li>
+  </ul>
+
+  <h3 style="margin-top:22px">Se aparecer → faça isto</h3>
+  <table class="fix">
+    <tr><th>Se aparecer</th><th>Faça isto</th></tr>
+    <tr><td>Agendamento desligado: falta DONO_CHAT_ID</td><td>Mande <code>/meuid</code> e cole o número no <code>segredos.txt</code>.</td></tr>
+    <tr><td>O DONO_CHAT_ID … precisa ser só números</td><td>Cole só o número, sem espaço nem texto.</td></tr>
+    <tr><td>falta a peça do Composio</td><td>Missão 4, passo 3.</td></tr>
+    <tr><td>Não consegui criar o evento na agenda</td><td>Rode o <code>conectar_agenda.py</code>; depois <code>/pedidos</code>.</td></tr>
+    <tr><td>🛡️ alguém que não é o dono tentou aprovar</td><td>Nada: a trava funcionou.</td></tr>
+  </table>
+
+  <h3 style="margin-top:22px">Checklist</h3>
+  <ul class="tick">
+    <li><code>DONO_CHAT_ID</code> com o seu número.</li>
+    <li>Chave do Composio criada só para o bot, guardada só no <code>segredos.txt</code>.</li>
+    <li>Agenda conectada e testada com um evento real.</li>
+    <li>Provas das rédeas aprovadas.</li>
+  </ul>
+</section>
+
+<div class="say faisca">
+  <img src="../_comum/img/faisca-rosto.png" alt="">
+  <div class="bubble"><b class="who">FAÍSCA · PRÓXIMO PASSO</b>
+    <p>Seu bot atende, lembra, consulta e agenda com a sua aprovação. Na <a href="../r06-videos/"><strong>Receita 06</strong></a> você vai usar o mesmo processo para criar <strong>vídeos explicativos</strong> do seu negócio, para redes sociais e para apresentar o próprio bot aos clientes. 🎬</p>
+  </div>
+</div>
+
+<footer>3B Connect · Receita 05 · EM VALIDAÇÃO · versão 1. Testada em Ubuntu e numa VPS real; ainda não no Windows.<br>Faísca, Pulso e Terra são personagens, não pessoas.<br><a href="../caminho-das-pedras/">🛟 Deu erro? Caminho das pedras</a> · <a href="../">Trilha completa</a> O Studio Exemplo é fictício.</footer>
+</main>
+
+<script src="../_comum/receita.js"></script>
+</body>
+</html>

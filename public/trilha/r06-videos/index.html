@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vídeo do seu bot</title>
+<meta name="description" content="Receita 06 da 3B Connect: um vídeo vertical de 20 segundos apresentando o seu bot, gerado a partir de um arquivo de textos com o HyperFrames.">
+<link rel="stylesheet" href="../_comum/receita.css">
+<style>
+.video-box { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
+.video-box video { width: 260px; max-width: 70vw; aspect-ratio: 9 / 16; border-radius: 22px; background: #12101c; box-shadow: var(--shadow); }
+.video-box p { max-width: 360px; font-size: 16px; color: var(--muted); margin: 0; }
+.campos td:first-child { width: 28%; }
+</style>
+</head>
+<body data-receita="r06">
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">3B Connect · Receita 06</span>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <span class="progress-label" id="barLabel">0 de 7</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <span class="status">Versão 1 · em validação</span>
+  <div class="crew">
+    <img src="../_comum/img/faisca.png" alt="Faísca, robô amarelo">
+    <img src="../_comum/img/pulso.png" alt="Pulso, robô violeta">
+    <img src="../_comum/img/terra.png" alt="Terra, robô verde">
+  </div>
+  <h1>Um vídeo do seu bot, pronto para os Stories</h1>
+  <p class="lead">Você troca os textos num arquivo, roda um comando e sai um vídeo vertical de 20 segundos apresentando o seu bot. Sem programa de edição, sem arrastar nada numa linha do tempo.</p>
+  <div class="facts">
+    <div class="fact"><b>40–60 min</b><span>a primeira vez (instalações)</span></div>
+    <div class="fact"><b>7 missões</b><span>uma vitória por vez</span></div>
+    <div class="fact"><b>R$ 0</b><span>tudo roda no seu PC</span></div>
+  </div>
+</section>
+
+<div class="video-box">
+  <video src="exemplo-studio.mp4" poster="exemplo-capa.jpg" controls muted playsinline preload="metadata"></video>
+  <p><strong>Este é o vídeo que você vai fazer.</strong> Ele foi gerado pelo kit desta receita, com os textos de exemplo do Studio Exemplo (fictício). Depois da Missão 4, ele terá o nome, as cores e as frases do seu negócio.</p>
+</div>
+
+<div class="say terra">
+  <img src="../_comum/img/terra-rosto.png" alt="">
+  <div class="bubble"><b class="who">TERRA</b>
+    <p><strong>Antes de começar:</strong> o ideal é ter feito as Receitas <a href="../r01-bot-telegram-no-pc/">01</a> e <a href="../r02-bot-24h-na-vps/">02</a>, para o vídeo divulgar um bot que já está no ar. Você vai precisar de uns 2 GB livres no disco.</p>
+  </div>
+</div>
+
+<div class="os-pick">
+  <div><b>Qual computador você está usando?</b><br><span style="color:var(--muted);font-size:15px">As instalações mudam. A página se ajusta.</span></div>
+  <div class="os-switch" role="group" aria-label="Sistema operacional">
+    <button type="button" data-set-os="win" aria-pressed="true">Windows</button>
+    <button type="button" data-set-os="mac" aria-pressed="false">Mac</button>
+    <button type="button" data-set-os="linux" aria-pressed="false">Linux</button>
+  </div>
+</div>
+
+<!-- MISSÃO 0 -->
+<section class="mission" id="m0">
+  <header><div class="num">0</div><div><h2>Como um vídeo nasce de uma página</h2><div class="meta">3 min de leitura</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O <strong>HyperFrames</strong> é uma ferramenta gratuita e de código aberto (da HeyGen) que transforma uma página de internet animada em vídeo. Ele abre a página escondido, tira 30 fotos por segundo e junta tudo num MP4.</p>
+      <p>A animação já está pronta no kit. O que você muda é um arquivo de textos: o nome do negócio, as frases, as cores. Um comando gera o vídeo novo.</p>
+    </div>
+  </div>
+
+  <div class="flow">
+    <span>✍️ meu-video.json<br><small>seus textos</small></span><em>→</em>
+    <span>🎞️ HyperFrames<br><small>anima e fotografa</small></span><em>→</em>
+    <span>📱 meu-video.mp4<br><small>pronto para postar</small></span>
+  </div>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>O melhor: quando você mudar o preço ou o horário, gera o vídeo de novo em 2 minutos. E dá para fazer um vídeo para cada serviço só trocando o arquivo. 🎬</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="0"> Entendi: eu troco os textos, a ferramenta faz o vídeo.</label>
+</section>
+
+<!-- MISSÃO 1 -->
+<section class="mission" id="m1">
+  <header><div class="num">1</div><div><h2>Instale o Node.js</h2><div class="meta">10 min · só uma vez</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O Node.js é o "motor" do HyperFrames, assim como o Python é o motor do seu bot. O HyperFrames precisa da <strong>versão 22 ou mais nova</strong>.</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Acesse <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a></b> e baixe a versão marcada como <strong>LTS</strong> (a recomendada).
+      <div data-os="linux"><p style="font-size:16px;margin-top:6px">No Linux, a versão dos repositórios costuma ser antiga. Siga as instruções do site para o seu sistema e confira a versão no passo 3.</p></div>
+    </li>
+    <li><b>Instale clicando em <em>Próximo</em> até o fim.</b> As opções padrão servem.</li>
+    <li><b>Feche e abra o terminal de novo</b> e confira:
+      <div class="cmd"><pre>node --version</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see"><code>v22</code> ou um número maior, por exemplo <code>v24.10.0</code>.</div>
+    </li>
+  </ol>
+
+  <details class="oops"><summary>"'node' não é reconhecido" ou "command not found"</summary>
+    <div>O terminal foi aberto antes da instalação terminar. Feche <strong>todas</strong> as janelas de terminal e abra uma nova.</div>
+  </details>
+  <details class="oops"><summary>Apareceu v18 ou v20</summary>
+    <div>Versão antiga demais. Baixe a LTS atual em nodejs.org e instale por cima.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="1"> O terminal mostrou v22 ou maior.</label>
+</section>
+
+<!-- MISSÃO 2 -->
+<section class="mission" id="m2">
+  <header><div class="num">2</div><div><h2>Instale o FFmpeg</h2><div class="meta">10 min · a pedra mais comum desta receita</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>O FFmpeg é quem junta as fotos num arquivo de vídeo. É gratuito e muito usado no mundo do vídeo.</p>
+    </div>
+  </div>
+
+  <div data-os="win">
+    <ol class="steps">
+      <li><b>Abra o terminal</b> e cole:
+        <div class="cmd"><pre>winget install --id Gyan.FFmpeg -e</pre><button type="button" data-copy>Copiar</button></div>
+        Se ele pedir para aceitar os termos, digite <code>Y</code> e <kbd>Enter</kbd>.
+      </li>
+      <li><b>Feche e abra o terminal de novo.</b></li>
+    </ol>
+    <details class="oops"><summary>"'winget' não é reconhecido"</summary>
+      <div>O seu Windows não tem o instalador de aplicativos. Abra a Microsoft Store, procure por <strong>Instalador de Aplicativo</strong> (App Installer), instale ou atualize e repita.</div>
+    </details>
+  </div>
+  <div data-os="mac">
+    <ol class="steps">
+      <li><b>Instale o Homebrew</b>, o "loja de aplicativos do terminal" do Mac: siga a linha única da página <a href="https://brew.sh" target="_blank" rel="noopener">brew.sh</a>. Ele pede a senha do Mac, e ela não aparece enquanto você digita.</li>
+      <li><b>Instale o FFmpeg:</b>
+        <div class="cmd"><pre>brew install ffmpeg</pre><button type="button" data-copy>Copiar</button></div>
+      </li>
+    </ol>
+    <details class="oops"><summary>"brew: command not found" logo depois de instalar</summary>
+      <div>No fim da instalação, o Homebrew mostra duas ou três linhas em "Next steps" para você copiar e colar. Rode-as, feche e abra o terminal.</div>
+    </details>
+  </div>
+  <div data-os="linux">
+    <ol class="steps">
+      <li><b>No Ubuntu ou Debian:</b>
+        <div class="cmd"><pre>sudo apt install -y ffmpeg</pre><button type="button" data-copy>Copiar</button></div>
+      </li>
+    </ol>
+  </div>
+
+  <ol class="steps">
+    <li><b>Confira se está tudo pronto</b> com o diagnóstico do HyperFrames:
+      <div class="cmd"><pre>npx hyperframes@0.8.104 doctor</pre><button type="button" data-copy>Copiar</button></div>
+      Na primeira vez, ele pergunta se pode baixar o HyperFrames (<code>Ok to proceed?</code>): digite <code>y</code> e <kbd>Enter</kbd>.
+      <div class="see">✓ verde nas linhas <strong>Node.js</strong>, <strong>FFmpeg</strong> e <strong>FFprobe</strong>.</div>
+    </li>
+  </ol>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>O diagnóstico vai mostrar alguns <strong>✗ vermelhos</strong>, como <em>whisper-cpp</em>, <em>TTS</em> e <em>BGM</em>. Calma: ele mesmo diz <em>"optional"</em>. São extras para narração e música, que esta receita não usa. Só importam Node.js, FFmpeg e FFprobe.</p>
+      <p>Se aparecer <strong>"Low memory"</strong>, feche o navegador e outros programas antes de gerar o vídeo.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="2"> O doctor mostrou ✓ em Node.js, FFmpeg e FFprobe.</label>
+</section>
+
+<!-- MISSÃO 3 -->
+<section class="mission win" id="m3">
+  <header><div class="num">3</div><div><h2>Gere o vídeo de exemplo 🎉</h2><div class="meta">10 min · a primeira vitória</div></div></header>
+
+  <ol class="steps">
+    <li><b>Baixe o kit:</b> <a href="kit-receita-06.zip" download>kit-receita-06.zip</a> e extraia. Você terá a pasta <code>video-do-meu-bot</code>.</li>
+    <li><b>Abra o terminal dentro dessa pasta</b>, com o mesmo truque da Receita 01:
+      <span data-os="win">no Explorador, clique na barra de endereço, digite <code>cmd</code> e <kbd>Enter</kbd>.</span>
+      <span data-os="mac">botão direito na pasta → <em>Serviços</em> → <em>Novo Terminal na Pasta</em>.</span>
+      <span data-os="linux">botão direito num espaço vazio da pasta → <em>Abrir no terminal</em>.</span>
+    </li>
+    <li><b>Gere o vídeo:</b>
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>npx hyperframes@0.8.104 render --strict-variables --variables-file meu-video.json --output meu-video.mp4</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see">Uma barra de progresso e, no fim, <code>Render complete</code> com o tamanho e a duração: <code>20.0s video</code>.</div>
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>saída real · num PC simples de 4 núcleos e 3 GB de memória</span></div><pre><span class="d">  Lint: 0 error(s), 5 warning(s) — run with --lint-verbose for full output.</span>
+  █████████████████████████  100%  Render complete
+<span class="t">   4.1 MB · 20.0s video · rendered in 1m 56.3s</span></pre></div>
+    </li>
+    <li><b>Abra o <code>meu-video.mp4</code></b> que apareceu na pasta. É o mesmo vídeo do topo desta página.</li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Viu o <code>5 warning(s)</code>? São só sugestões de organização do arquivo de animação. Ignore. Erro de verdade aparece com <code>✗</code> e o vídeo não é gerado.</p>
+      <p>O <code>@0.8.104</code> no comando fixa a versão que a 3B testou, para o resultado sair igual na sua máquina e na nossa.</p>
+    </div>
+  </div>
+
+  <details class="oops"><summary>Demorou muito na primeira vez</summary>
+    <div>Na primeira vez, o HyperFrames baixa um navegador próprio para "fotografar" a página. Isso só acontece uma vez. Depois, um vídeo de 20 segundos leva de 1 a 3 minutos, conforme o computador.</div>
+  </details>
+  <details class="oops"><summary>Travou ou deu erro de memória</summary>
+    <div>Feche o navegador e outros programas e rode de novo. Para um teste rápido, acrescente <code>--quality draft</code> no fim do comando: fica um pouco menos nítido, mas mais leve.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="3"> Gerei e assisti o vídeo de exemplo.</label>
+</section>
+
+<!-- MISSÃO 4 -->
+<section class="mission" id="m4">
+  <header><div class="num">4</div><div><h2>Coloque o seu negócio no vídeo</h2><div class="meta">15 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Abra o <code>meu-video.json</code></b> no <span data-os="win">Bloco de Notas</span><span data-os="mac">TextEdit</span><span data-os="linux">editor de texto</span>.
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>meu-video.json · trecho</span></div><pre>{
+  "negocio": "Studio Exemplo",
+  "bot": "Lia",
+  "telegram": "@studio_exemplo_bot",
+  "chamada": "Agende seu ensaio a qualquer hora",
+  ...
+}</pre></div>
+    </li>
+    <li><b>Troque só o texto entre as aspas da direita.</b> Não apague aspas, dois-pontos nem vírgulas.
+      <div class="good-bad" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:15px;margin:10px 0">
+        <div style="background:var(--green-soft);border-radius:14px;padding:12px"><b style="display:block;font:800 12px Sora,sans-serif;text-transform:uppercase">✅ Certo</b><code>"negocio": "Barbearia do Zé",</code></div>
+        <div style="background:var(--amber-soft);border-radius:14px;padding:12px"><b style="display:block;font:800 12px Sora,sans-serif;text-transform:uppercase">❌ Errado</b><code>"negocio": Barbearia do Zé</code><br><small>faltaram as aspas e a vírgula</small></div>
+      </div>
+    </li>
+    <li><b>Preencha cada campo:</b>
+      <table class="fix campos">
+        <tr><th>Campo</th><th>O que é · tamanho bom</th></tr>
+        <tr><td>negocio</td><td>Nome do seu negócio.</td></tr>
+        <tr><td>bot</td><td>Nome do seu bot (o da persona).</td></tr>
+        <tr><td>telegram</td><td>O @ do bot. Até 32 letras, o limite do Telegram.</td></tr>
+        <tr><td>chamada</td><td>Frase de abertura. Até umas 40 letras.</td></tr>
+        <tr><td>pergunta</td><td>Uma pergunta que cliente faz de verdade. Curta.</td></tr>
+        <tr><td>resposta</td><td>O que o bot responderia, de acordo com a sua base. Até umas 160 letras.</td></tr>
+        <tr><td>item1, item2, item3</td><td>O que o bot faz. Até umas 45 letras cada.</td></tr>
+        <tr><td>final</td><td>Frase do convite final.</td></tr>
+        <tr><td>cor, fundo</td><td>Cores no formato <code>#RRGGBB</code>. Fundo escuro fica melhor.</td></tr>
+      </table>
+    </li>
+    <li><b>Salve e gere de novo</b>, com o mesmo comando da Missão 3.</li>
+  </ol>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>Para achar o código de uma cor, pesquise "seletor de cores" no Google: aparece uma paleta que mostra o código <code>#</code> da cor escolhida. Use a cor da sua marca! 🎨</p>
+    </div>
+  </div>
+
+  <details class="oops"><summary>"✗ Invalid JSON in --variables-file"</summary>
+    <div>Faltou ou sobrou uma aspa, um dois-pontos ou uma vírgula. A linha seguinte diz onde: por exemplo <code>(line 3 column 3)</code> quer dizer linha 3. Olhe essa linha e a de cima. A última linha antes do <code>}</code> é a única que não tem vírgula no fim.</div>
+  </details>
+  <details class="oops"><summary>"✗ Variable validation failed"</summary>
+    <div>Você mudou o nome de um campo, o texto da esquerda. A mensagem logo acima diz qual, por exemplo <code>Variable "nome_do_negocio" is not declared</code>. Volte o nome para o original (<code>negocio</code>). É o <code>--strict-variables</code> do comando que te protege: sem ele, o vídeo sairia com o texto de exemplo e você só perceberia depois de postar.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="4"> Gerei um vídeo com o meu negócio.</label>
+</section>
+
+<!-- MISSÃO 5 -->
+<section class="mission" id="m5">
+  <header><div class="num">5</div><div><h2>Confira antes de postar</h2><div class="meta">5 min · o olhar de revisor</div></div></header>
+
+  <ul class="tick">
+    <li>Assista inteiro, com atenção: nenhum texto cortado nem saindo da tela.</li>
+    <li>O @ do final está <strong>exatamente</strong> igual ao do seu bot. Procure-o no Telegram para confirmar.</li>
+    <li>A resposta de exemplo diz só o que o seu bot realmente responde, de acordo com a sua base (Receita 04).</li>
+    <li>Os três itens descrevem o que o bot faz <strong>hoje</strong>, não o que você ainda vai fazer.</li>
+    <li>Mostre para alguém de fora e pergunte: "entendeu o que é?".</li>
+  </ul>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Três cuidados de honestidade. <strong>(1)</strong> O selo "Conversa ilustrativa" fica no vídeo: a conversa é um exemplo, não um print real. <strong>(2)</strong> Nunca use nome, foto ou mensagem de cliente de verdade. <strong>(3)</strong> O vídeo sai sem música, de propósito. Se quiser música, adicione no próprio Instagram ou WhatsApp, que oferecem músicas liberadas para uso. Música baixada da internet pode derrubar o seu post.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="5"> Revisei o vídeo e ele diz só a verdade.</label>
+</section>
+
+<!-- MISSÃO 6 -->
+<section class="mission" id="m6">
+  <header><div class="num">6</div><div><h2>Indo além: peça mudanças a um agente de IA</h2><div class="meta">opcional · para quem quer um estilo próprio</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>A animação mora no <code>index.html</code>. Você não precisa aprender a editar esse arquivo: um <strong>agente de IA de programação</strong> (como o Claude Code) faz isso por você. O HyperFrames tem "manuais" próprios para esses agentes, para eles seguirem as regras da ferramenta em vez de chutar.</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Instale os manuais do HyperFrames no seu agente</b>, no terminal:
+      <div class="cmd"><pre>npx hyperframes@0.8.104 skills</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Abra o agente dentro da pasta <code>video-do-meu-bot</code></b> e peça em português. Exemplos:
+      <div class="cmd multi"><pre>Neste projeto HyperFrames, acrescente uma cena de 4 segundos antes do final mostrando os 3 serviços do arquivo ../meu-primeiro-bot/conhecimento/servicos.txt. Mantenha os textos editáveis pelo meu-video.json e rode o check no fim.</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="cmd multi"><pre>Troque o estilo do vídeo para fundo claro e letras escuras, mantendo o contraste aprovado no check.</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="cmd multi"><pre>Faça uma versão horizontal 1920x1080 deste vídeo para o YouTube, num arquivo separado.</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Peça sempre para ele rodar o <code>check</code></b> e gerar uma prévia antes do vídeo final. Você revisa como na Missão 5.</li>
+  </ol>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Antes de pedir mudanças, faça uma cópia da pasta (<code>video-do-meu-bot-original</code>). Se o agente bagunçar, você volta para a versão que funcionava. É o mesmo hábito do segredos.txt: proteger o que já está bom.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="6"> Sei como pedir mudanças a um agente, com cópia de segurança.</label>
+</section>
+
+<!-- MISSÃO 7 -->
+<section class="mission" id="m7">
+  <header><div class="num">7</div><div><h2>Poste e use o vídeo no atendimento</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Passe o vídeo para o celular</b> (pelo próprio Telegram: mande para você mesmo em "Mensagens salvas").</li>
+    <li><b>Poste nos Stories ou Reels</b> com a frase "Fale com a [nome do bot] no Telegram" e o link <code>t.me/seu_bot</code> (sem o @).</li>
+    <li><b>Fixe no destaque</b> do perfil e use o vídeo como resposta quando alguém perguntar "como funciona o atendimento?".</li>
+  </ol>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>Quer testar duas chamadas diferentes? Copie o <code>meu-video.json</code> para <code>meu-video-2.json</code>, mude a frase e gere com <code>--variables-file meu-video-2.json --output meu-video-2.mp4</code>. Veja qual traz mais conversas para o bot! 📈</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="7"> Postei o vídeo com o link do bot.</label>
+</section>
+
+<section class="mission" id="final">
+  <header><div class="num">✓</div><div><h2>Teste de conclusão</h2></div></header>
+  <p>Você concluiu a Receita 06 quando:</p>
+  <ul class="tick">
+    <li>gerou um MP4 de 20 segundos com o nome, as cores e as frases do seu negócio;</li>
+    <li>o @ do vídeo leva ao seu bot de verdade;</li>
+    <li>a conversa do vídeo bate com o que o bot responde;</li>
+    <li>sabe gerar uma versão nova em 2 minutos quando algo mudar.</li>
+  </ul>
+
+  <h3 style="margin-top:22px">Se aparecer → faça isto</h3>
+  <table class="fix">
+    <tr><th>Se aparecer</th><th>Faça isto</th></tr>
+    <tr><td>'npx' não é reconhecido</td><td>Missão 1: instale o Node.js e reabra o terminal.</td></tr>
+    <tr><td>✗ FFmpeg no doctor</td><td>Missão 2.</td></tr>
+    <tr><td>Invalid JSON in --variables-file</td><td>Confira aspas e vírgulas na linha indicada.</td></tr>
+    <tr><td>Variable validation failed</td><td>Volte o nome do campo ao original.</td></tr>
+    <tr><td>5 warning(s)</td><td>Nada: são só sugestões.</td></tr>
+    <tr><td>Texto saindo da tela</td><td>Encurte o campo, seguindo a tabela da Missão 4.</td></tr>
+  </table>
+
+  <h3 style="margin-top:22px">Checklist</h3>
+  <ul class="tick">
+    <li>Node.js 22+ e FFmpeg instalados.</li>
+    <li><code>meu-video.json</code> com os dados reais do negócio.</li>
+    <li>Selo "Conversa ilustrativa" mantido, sem dados de clientes.</li>
+    <li>Música só da biblioteca da rede social.</li>
+  </ul>
+</section>
+
+<div class="say faisca">
+  <img src="../_comum/img/faisca-rosto.png" alt="">
+  <div class="bubble"><b class="who">FAÍSCA · PRÓXIMO PASSO</b>
+    <p>Bot no ar, lembrando, consultando, agendando e com vídeo de divulgação. Na <a href="../r07-operar/"><strong>Receita 07</strong></a> você aprende a cuidar de tudo isso sem susto: quanto está gastando, como ler os logs, como atualizar e como fazer cópia de segurança. 🧰</p>
+  </div>
+</div>
+
+<footer>3B Connect · Receita 06 · EM VALIDAÇÃO · versão 1. Testada em Ubuntu e numa VPS real; ainda não no Windows.<br>Faísca, Pulso e Terra são personagens, não pessoas.<br><a href="../caminho-das-pedras/">🛟 Deu erro? Caminho das pedras</a> · <a href="../">Trilha completa</a> O Studio Exemplo é fictício. HyperFrames é uma ferramenta de terceiros; versão testada: 0.8.104.</footer>
+</main>
+
+<script src="../_comum/receita.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+KIT DA RECEITA 05 — 3B Connect
+
+Copie para dentro da sua pasta meu-primeiro-bot e aceite substituir:
+
+  meu_bot.py           Versão 4: prepara agendamentos e espera a SUA aprovação.
+  conectar_agenda.py   NOVO: liga o seu Google Agenda ao Composio (rode uma vez, no PC).
+  preparar_vps.sh      Atualizado: instala a peça do Composio na VPS quando houver chave.
+
+Acrescente no seu segredos.txt (veja segredos-novas-linhas.txt):
+
+  DONO_CHAT_ID=        o seu número de conversa (mande /meuid para o bot)
+  COMPOSIO_API_KEY=    chave do Composio (opcional; sem ela, você aprova e anota à mão)
+  COMPOSIO_USER_ID=dono
+
+NÃO substitua persona.txt, memoria.txt, conhecimento/ nem segredos.txt.

@@ -1,0 +1,11 @@
+# ESTE ARQUIVO GUARDA AS CHAVES DO SEU BOT.
+# 1. Faça uma cópia dele e chame a cópia de: segredos.txt
+# 2. Cole o token depois do sinal de igual, sem espaço e sem aspas.
+# 3. Nunca mande este arquivo para ninguém, nem em print.
+
+# Token que o @BotFather te deu (obrigatório):
+TELEGRAM_TOKEN=
+
+# Chave da IA (opcional — deixe vazio para o modo ECO).
+# Pegue em console.anthropic.com > API Keys. Defina um limite de gasto ANTES.
+ANTHROPIC_API_KEY=

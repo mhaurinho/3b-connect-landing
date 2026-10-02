@@ -1,0 +1,15 @@
+# O CADERNINHO DO BOT
+# Aqui você decide o que o bot PODE anotar sobre cada cliente.
+# Uma linha por campo, no formato:   nome_do_campo: explicação para o bot
+#
+# Regras de ouro:
+# - Anote só o que ajuda a atender melhor. Menos é mais.
+# - Use nomes de campo sem espaço e sem acento (ex.: melhor_horario).
+# - Documento, cartão, senha, e-mail, telefone e saúde NUNCA são guardados:
+#   o meu_bot.py bloqueia isso sozinho, mesmo que você crie um campo para eles.
+# - Para desligar o caderninho, apague (ou comente com #) todas as linhas abaixo.
+
+nome: como a pessoa gosta de ser chamada
+interesse: qual serviço ela quer (ex.: ensaio de família)
+melhor_horario: dias e horários que ela prefere
+preferencia: um gosto útil para o atendimento (ex.: prefere ensaio ao ar livre)

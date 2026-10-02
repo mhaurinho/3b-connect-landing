@@ -1,0 +1,11 @@
+# ACRESCENTE estas linhas no FINAL do seu segredos.txt (não apague as que já existem).
+
+# Seu número de conversa no Telegram. Ligue o bot, mande /meuid e copie o número.
+DONO_CHAT_ID=
+
+# Chave do Composio para o bot (painel do Composio > Settings > API Keys).
+# Opcional: sem ela, você aprova os pedidos e anota na agenda à mão.
+COMPOSIO_API_KEY=
+
+# Nome que identifica você dentro do Composio. Pode deixar assim.
+COMPOSIO_USER_ID=dono

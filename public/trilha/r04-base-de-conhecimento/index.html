@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base de conhecimento</title>
+<meta name="description" content="Receita 04 da 3B Connect: o bot responde com os documentos do seu negócio e uma trava em código impede preço, desconto ou link inventado.">
+<link rel="stylesheet" href="../_comum/receita.css">
+<style>
+.docs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+.docs div { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 14px; font-size: 15px; line-height: 1.45; }
+.docs b { display: block; font: 800 15px "Sora", sans-serif; margin: 4px 0; }
+.docs .ico { font-size: 26px; }
+.good-bad { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; font-size: 15px; }
+.good-bad div { border-radius: 14px; padding: 12px; }
+.good-bad .bad { background: var(--amber-soft); } .good-bad .good { background: var(--green-soft); }
+.good-bad b { display: block; font: 800 12px "Sora", sans-serif; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 4px; }
+@media (max-width: 560px) { .docs, .good-bad { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-receita="r04">
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">3B Connect · Receita 04</span>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <span class="progress-label" id="barLabel">0 de 7</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <span class="status">Versão 1 · em validação</span>
+  <div class="crew">
+    <img src="../_comum/img/faisca.png" alt="Faísca, robô amarelo">
+    <img src="../_comum/img/pulso.png" alt="Pulso, robô violeta">
+    <img src="../_comum/img/terra.png" alt="Terra, robô verde">
+  </div>
+  <h1>Seu bot responde com os documentos do seu negócio, sem inventar</h1>
+  <p class="lead">Serviços, preços, perguntas frequentes e políticas viram uma pasta de textos simples. O bot responde só com o que está lá. Quando não sabe, avisa e anota a dúvida para você. E se tentar inventar um preço, a resposta nem sai.</p>
+  <div class="facts">
+    <div class="fact"><b>50–70 min</b><span>a maior parte é escrever a base</span></div>
+    <div class="fact"><b>7 missões</b><span>uma vitória por vez</span></div>
+    <div class="fact"><b>Sem custo novo</b><span>a base usa cache para sair mais barata</span></div>
+  </div>
+</section>
+
+<div class="say terra">
+  <img src="../_comum/img/terra-rosto.png" alt="">
+  <div class="bubble"><b class="who">TERRA</b>
+    <p><strong>Antes de começar:</strong> você precisa ter concluído as Receitas <a href="../r01-bot-telegram-no-pc/">01</a>, <a href="../r02-bot-24h-na-vps/">02</a> e <a href="../r03-memoria/">03</a>. Esta receita continua da mesma pasta <code>meu-primeiro-bot</code>.</p>
+  </div>
+</div>
+
+<div class="os-pick">
+  <div><b>Qual computador você está usando?</b><br><span style="color:var(--muted);font-size:15px">Os comandos mudam um pouco. A página se ajusta.</span></div>
+  <div class="os-switch" role="group" aria-label="Sistema operacional">
+    <button type="button" data-set-os="win" aria-pressed="true">Windows</button>
+    <button type="button" data-set-os="mac" aria-pressed="false">Mac</button>
+    <button type="button" data-set-os="linux" aria-pressed="false">Linux</button>
+  </div>
+</div>
+
+<!-- MISSÃO 0 -->
+<section class="mission" id="m0">
+  <header><div class="num">0</div><div><h2>Por que uma base de conhecimento</h2><div class="meta">3 min de leitura</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>A IA sabe muito sobre o mundo e <strong>nada sobre o seu negócio</strong>. Quando não sabe, ela tende a "completar" com algo plausível: um preço médio de mercado, um prazo comum. No atendimento, isso é desastre.</p>
+      <p>A base de conhecimento é o <strong>manual da recepcionista</strong>: o bot lê tudo antes de cada resposta e só pode usar o que está nele.</p>
+    </div>
+  </div>
+
+  <div class="docs">
+    <div><span class="ico">🧾</span><b>servicos.txt</b>O que você vende, quanto tempo leva, o que entrega e quanto custa.</div>
+    <div><span class="ico">💬</span><b>perguntas-frequentes.txt</b>As perguntas que você responde toda semana, com a sua resposta.</div>
+    <div><span class="ico">📜</span><b>politicas.txt</b>Reserva, remarcação, cancelamento, devolução: as regras do jogo.</div>
+  </div>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Mesma lição da Receita 03: <strong>pedido na instrução, garantia no código</strong>. A instrução pede "não invente preço". A trava de saída <em>confere</em> cada resposta: todo valor em R$, toda porcentagem de desconto e todo link precisam estar escritos na sua base. Se não estiverem, a resposta é trocada por uma segura antes de chegar ao cliente.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="0"> Entendi: a base é o manual, e a trava confere preço, desconto e link.</label>
+</section>
+
+<!-- MISSÃO 1 -->
+<section class="mission" id="m1">
+  <header><div class="num">1</div><div><h2>Atualize o bot para a versão 3</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Pare o bot da VPS</b> para testar no PC (um bot, um lugar):
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>systemctl stop meu-bot</pre><button type="button" data-copy>Copiar</button></div>
+      Depois <code>exit</code>.
+    </li>
+    <li><b>Baixe o kit:</b> <a href="kit-receita-04.zip" download>kit-receita-04.zip</a>. Ele traz o <code>meu_bot.py</code> (versão 3), o <code>preparar_vps.sh</code> atualizado e a pasta <code>conhecimento</code> com 3 documentos de exemplo.</li>
+    <li><b>Copie tudo para dentro da <code>meu-primeiro-bot</code></b> e aceite substituir.
+      <div class="guard"><div>O kit <strong>não</strong> traz <code>persona.txt</code>, <code>memoria.txt</code> nem <code>segredos.txt</code>: os seus continuam intactos.</div></div>
+      <div class="ill" role="img" aria-label="Ilustração: pasta meu-primeiro-bot com a nova pasta conhecimento e três documentos dentro">
+        <div class="tip"><img src="../_comum/img/pulso-rosto.png" alt="">Uma pasta nova: conhecimento</div>
+        <div class="win"><div class="win-top"><i></i><i></i><i></i> meu-primeiro-bot</div>
+          <div class="files">
+            <div class="glow" style="padding:2px 4px">📁 <b>conhecimento</b> &nbsp;<small style="color:var(--muted)">nova</small></div>
+            <div style="padding-left:22px">🧾 servicos.txt</div><div style="padding-left:22px">💬 perguntas-frequentes.txt</div><div style="padding-left:22px">📜 politicas.txt</div>
+            <div>📁 dados</div><div>📒 memoria.txt</div><div class="glow" style="padding:2px 4px">🐍 <b>meu_bot.py</b> &nbsp;<small style="color:var(--muted)">versão 3</small></div><div>📄 persona.txt</div><div>⚙️ preparar_vps.sh</div><div>🔒 segredos.txt</div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li><b>Ligue o bot no PC:</b>
+      <span class="where pc">no seu PC</span>
+      <div data-os="win"><div class="cmd"><pre>python meu_bot.py</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div data-os="mac linux"><div class="cmd"><pre>.venv/bin/python meu_bot.py</pre><button type="button" data-copy>Copiar</button></div></div>
+      <div class="see"><code>Base de conhecimento: 3 documento(s): perguntas-frequentes.txt, politicas.txt, servicos.txt.</code></div>
+    </li>
+  </ol>
+
+  <label class="check"><input type="checkbox" data-mission="1"> Vi a fala do Pulso listando os 3 documentos.</label>
+</section>
+
+<!-- MISSÃO 2 -->
+<section class="mission" id="m2">
+  <header><div class="num">2</div><div><h2>Escreva a base do seu negócio</h2><div class="meta">30–40 min · a parte que mais vale</div></div></header>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>Não precisa ficar perfeito agora! Comece com o que você responde toda semana. A Missão 6 vai te mostrar exatamente o que está faltando. ✍️</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Abra os 3 documentos de exemplo</b> na pasta <code>conhecimento</code> e veja o formato.</li>
+    <li><b>Troque o conteúdo pelo do seu negócio</b>, seguindo estas regras:
+      <div class="good-bad">
+        <div class="bad"><b>❌ Evite</b>"Os valores variam conforme o pacote, consulte."</div>
+        <div class="good"><b>✅ Prefira</b>"Ensaio individual: R$ 350. Ensaio de família: R$ 650."</div>
+        <div class="bad"><b>❌ Evite</b>Um textão sobre a história da empresa.</div>
+        <div class="good"><b>✅ Prefira</b>Pergunta curta, resposta curta, uma de cada vez.</div>
+        <div class="bad"><b>❌ Evite</b>Deixar de fora o que você não faz.</div>
+        <div class="good"><b>✅ Prefira</b>"Não fazemos casamento ou evento." Isso evita promessa errada.</div>
+      </div>
+    </li>
+    <li><b>Escreva os preços sempre do mesmo jeito: <code>R$ 350</code>.</b> A trava de saída compara exatamente esses valores.</li>
+    <li><b>Salve como texto</b> (<code>.txt</code> ou <code>.md</code>). Pode criar mais documentos, como <code>horarios.txt</code> ou <code>entregas.txt</code>. O bot lê todos.</li>
+  </ol>
+
+  <details class="oops"><summary>Tenho tudo num Word ou PDF</summary>
+    <div>O bot só lê texto puro. Abra o Word ou PDF, selecione o conteúdo, copie e cole num arquivo novo do <span data-os="win">Bloco de Notas</span><span data-os="mac">TextEdit (menu Formatar → Converter em Texto Simples)</span><span data-os="linux">editor de texto</span>. Salve com <code>.txt</code> dentro da pasta <code>conhecimento</code>. Aproveite para cortar o que não ajuda o cliente.</div>
+  </details>
+  <details class="oops"><summary>"Não consegui ler a pasta conhecimento"</summary>
+    <div>Algum arquivo foi salvo num formato que não é texto puro ou com codificação antiga. No Bloco de Notas, use <em>Salvar como</em> e escolha a codificação <strong>UTF-8</strong>.</div>
+  </details>
+  <details class="oops"><summary>"A base de conhecimento tem … letras, acima do limite"</summary>
+    <div>A base passou de 200 mil letras, mais ou menos um livro de 100 páginas. Base grande demais fica cara e confunde o bot. Corte repetições e textos que não respondem pergunta de cliente.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="2"> Meus 3 documentos têm as informações reais do meu negócio.</label>
+</section>
+
+<!-- MISSÃO 3 -->
+<section class="mission" id="m3">
+  <header><div class="num">3</div><div><h2>Uma verdade, um lugar</h2><div class="meta">3 min · limpe a persona</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Na Receita 01, você escreveu os serviços dentro da persona, na seção "O QUE VOCÊ SABE". Agora eles estão na base. Se ficarem nos dois lugares, um dia você muda o preço em um e esquece do outro, e o bot fica sem saber em qual acreditar.</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Abra o <code>persona.txt</code></b> e <strong>apague a seção inteira</strong> "O QUE VOCÊ SABE".</li>
+    <li><b>Mantenha o resto:</b> quem o bot é, como fala, o que nunca faz e o "FORA DO ASSUNTO". A persona é o <em>jeito</em>; a base é o <em>conteúdo</em>.</li>
+    <li><b>Salve e reinicie o bot.</b></li>
+  </ol>
+
+  <label class="check"><input type="checkbox" data-mission="3"> A persona tem o jeito; a base tem o conteúdo.</label>
+</section>
+
+<!-- MISSÃO 4 -->
+<section class="mission win" id="m4">
+  <header><div class="num">4</div><div><h2>Teste a base 🎉</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Pergunte algo que está na base</b> (com os exemplos: "quanto custa o ensaio de família?").
+      <div class="see">A resposta certinha, com o valor da base.</div>
+    </li>
+    <li><b>Pergunte algo que NÃO está</b> ("vocês fazem ensaio de casal?").
+      <div class="see">O bot diz que vai verificar com a equipe e, no terminal, aparece <code>❓ Dúvida sem resposta na base, anotada em dados/duvidas.txt</code>.</div>
+      <div class="ill" role="img" aria-label="Ilustração: o bot responde o preço que está na base e, para o serviço que não está, diz que vai verificar">
+        <div class="tip"><img src="../_comum/img/faisca-rosto.png" alt="">Sabe o que sabe, e admite o que não sabe</div>
+        <div class="win"><div class="chat-head"><div class="av">✨</div><div><b>Atendimento Studio Ana</b><small>bot</small></div></div>
+        <div class="msgs">
+          <div class="msg me">quanto custa o ensaio de família?</div>
+          <div class="msg">O ensaio de família sai por R$ 650, com 2 horas e 30 fotos editadas. 📸</div>
+          <div class="msg me">e vocês fazem ensaio de casal?</div>
+          <div class="msg glow">Esse eu não tenho aqui, vou verificar com a equipe e já te respondem! 😊</div>
+        </div></div>
+      </div>
+    </li>
+  </ol>
+
+  <div class="term"><div class="bar"><i></i><i></i><i></i><span>saída real do script · testada com IA simulada · o nome do seu bot será outro</span></div><pre><span class="p">🟣 Pulso: Base de conhecimento: 3 documento(s): perguntas-frequentes.txt, politicas.txt, servicos.txt.</span>
+<span class="p">🟣 Pulso: Caderninho ligado. Campos que posso anotar: nome, interesse, melhor_horario, preferencia.</span>
+   📩 Ana mandou: quanto custa o ensaio de casal?
+<span class="f">🟡 Faísca: ❓ Dúvida sem resposta na base, anotada em dados/duvidas.txt: preço do ensaio de casal</span></pre></div>
+
+  <label class="check"><input type="checkbox" data-mission="4"> O bot acertou o que está na base e anotou o que não está.</label>
+</section>
+
+<!-- MISSÃO 5 -->
+<section class="mission" id="m5">
+  <header><div class="num">5</div><div><h2>Tente fazer o bot inventar</h2><div class="meta">10 min · a prova da trava de saída</div></div></header>
+
+  <table class="fix">
+    <tr><th>Mande isto</th><th>O bot passou se…</th></tr>
+    <tr><td>faz por R$ 300?</td><td>Não aceitou nem inventou outro valor.</td></tr>
+    <tr><td>tem desconto no pix?</td><td>Não inventou desconto. Se a base não fala de desconto, diz que vai verificar.</td></tr>
+    <tr><td>me manda o link do portfólio</td><td>Não inventou link. Só manda link que estiver escrito na base.</td></tr>
+    <tr><td>quanto fica a família com 6 pessoas?</td><td>Ou explica a regra da base (R$ 650 + R$ 50 por pessoa a mais), ou diz que a equipe confirma. Não pode aparecer um total que não está escrito.</td></tr>
+    <tr><td>se cancelar 3 dias antes, devolve o sinal?</td><td>Respondeu igual à sua política.</td></tr>
+  </table>
+
+  <p>Se a IA tentar citar um valor que não está na base, o terminal mostra:</p>
+  <div class="term"><div class="bar"><i></i><i></i><i></i><span>saída real do script · testada com IA simulada</span></div><pre>   📩 Ana mandou: faz por 400 no pix?
+<span class="t">🟢 Terra: 🛡️ Trava de saída: a resposta citava 10%, R$ 400, que não estão na base.</span>
+<span class="t">   Mandei uma resposta segura no lugar e anotei a dúvida.</span></pre></div>
+  <p>E o cliente recebe: <em>"Essa informação eu prefiro confirmar com a equipe antes de te passar, tá? Já deixei anotado para te responderem. 😊"</em></p>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Repare no caso da família com 6 pessoas: a IA pode até fazer a conta certa (R$ 700), mas a trava barra, porque "R$ 700" não está escrito na base. É de propósito: <strong>conta de preço quem confirma é gente</strong>. Se esse caso for comum no seu negócio, escreva o total na base ("Família com 6 pessoas: R$ 700").</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="5"> Tentei de tudo e o bot não inventou preço, desconto nem link.</label>
+</section>
+
+<!-- MISSÃO 6 -->
+<section class="mission" id="m6">
+  <header><div class="num">6</div><div><h2>A lista de dúvidas: seu bot ensinando você</h2><div class="meta">5 min · e um hábito semanal</div></div></header>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b>
+      <p>Esta é a parte mais legal: cada pergunta que o bot não soube responder vira uma linha numa lista. É o seu cliente te dizendo o que falta na base! 💡</p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>Abra a lista.</b> No PC, ela fica em <code>dados/duvidas.txt</code>, dentro da pasta do bot. Na VPS:
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>cat /home/bot/meu-primeiro-bot/dados/duvidas.txt</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>dados/duvidas.txt · exemplo</span></div><pre>2026-10-01 13:04 · preço do ensaio de casal
+2026-10-01 13:04 · (a IA tentou citar 10%, R$ 400) faz por 400 no pix?</pre></div>
+    </li>
+    <li><b>Para cada linha, decida:</b> vale acrescentar na base? Se sim, escreva a resposta no documento certo. Se a pergunta é fora do seu negócio, ignore.</li>
+    <li><b>Responda o cliente</b> que ficou esperando. O bot avisou que a equipe responderia, então cumpra a promessa.</li>
+  </ol>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Sejamos honestos: o bot não "aprende sozinho". <strong>Quem aprende é a base, porque você a atualiza.</strong> Reserve 15 minutos por semana para ler a lista. Em um mês, o bot responde quase tudo.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="6"> Li a minha lista de dúvidas e acrescentei pelo menos uma resposta na base.</label>
+</section>
+
+<!-- MISSÃO 7 -->
+<section class="mission" id="m7">
+  <header><div class="num">7</div><div><h2>Leve a base para a VPS</h2><div class="meta">5 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Desligue o bot no PC</b> (<kbd>Ctrl</kbd> + <kbd>C</kbd>).</li>
+    <li><b>Mande a pasta e rode a preparação</b>, como sempre:
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r meu-primeiro-bot root@SEU_IP:/root/</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>bash /root/meu-primeiro-bot/preparar_vps.sh</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see"><code>Base de conhecimento: 3 documento(s)…</code> nas últimas falas, e no fim: <code>🧹 Apaguei a pasta de entrega</code>.</div>
+    </li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Dois cuidados do script. <strong>(1)</strong> A pasta <code>conhecimento</code> na VPS fica <em>igual</em> à do PC: apagou um documento aqui, ele some lá. <strong>(2)</strong> No fim, ele apaga a pasta de entrega em <code>/root</code>, para não sobrar uma cópia do <code>segredos.txt</code> fora do lugar. A memória e a lista de dúvidas da VPS nunca são apagadas.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:14px">Atualizar a base no dia a dia</h3>
+  <p>Mudou um preço? Edite o documento no PC e repita os comandos acima. Leva um minuto.</p>
+
+  <label class="check"><input type="checkbox" data-mission="7"> O bot da VPS responde com a minha base.</label>
+</section>
+
+<section class="mission" id="final">
+  <header><div class="num">✓</div><div><h2>Teste de conclusão</h2></div></header>
+  <p>Você concluiu a Receita 04 quando:</p>
+  <ul class="tick">
+    <li>o bot da VPS responde certo três perguntas que estão na sua base;</li>
+    <li>uma pergunta fora da base vira uma linha em <code>dados/duvidas.txt</code>;</li>
+    <li>você tentou e não conseguiu fazer o bot inventar preço, desconto ou link;</li>
+    <li>a seção "O QUE VOCÊ SABE" saiu da persona.</li>
+  </ul>
+
+  <h3 style="margin-top:22px">Se aparecer → faça isto</h3>
+  <table class="fix">
+    <tr><th>Se aparecer</th><th>Faça isto</th></tr>
+    <tr><td>Base de conhecimento vazia</td><td>Crie a pasta <code>conhecimento</code> ao lado do <code>meu_bot.py</code>, com arquivos <code>.txt</code>.</td></tr>
+    <tr><td>Não consegui ler a pasta conhecimento</td><td>Salve os documentos como texto UTF-8.</td></tr>
+    <tr><td>🛡️ Trava de saída… que não está na base</td><td>Nada: a trava funcionou. Se o valor é real, escreva-o na base.</td></tr>
+    <tr><td>O bot responde preço antigo</td><td>Atualize o documento e reinicie o bot (ou mande para a VPS de novo).</td></tr>
+    <tr><td>O bot diz "vou verificar" para algo que está na base</td><td>Reescreva o trecho de forma mais direta, com a pergunta como o cliente faria.</td></tr>
+  </table>
+
+  <h3 style="margin-top:22px">Checklist</h3>
+  <ul class="tick">
+    <li>Serviços, perguntas frequentes e políticas reais na pasta <code>conhecimento</code>.</li>
+    <li>Preços escritos como <code>R$ 350</code>.</li>
+    <li>Uma verdade, um lugar: nada de serviço repetido na persona.</li>
+    <li>15 minutos por semana para a lista de dúvidas, na agenda.</li>
+  </ul>
+</section>
+
+<div class="say faisca">
+  <img src="../_comum/img/faisca-rosto.png" alt="">
+  <div class="bubble"><b class="who">FAÍSCA · PRÓXIMO PASSO</b>
+    <p>Seu bot já atende, lembra e consulta. Na <a href="../r05-ferramentas/"><strong>Receita 05</strong></a> ele ganha mãos: preparar um e-mail, sugerir um horário na agenda ou registrar um pedido numa planilha, <strong>sempre com a sua confirmação</strong> antes de qualquer ação de verdade. 🤝</p>
+  </div>
+</div>
+
+<footer>3B Connect · Receita 04 · EM VALIDAÇÃO · versão 1. Testada em Ubuntu e numa VPS real; ainda não no Windows.<br>Faísca, Pulso e Terra são personagens, não pessoas.<br><a href="../caminho-das-pedras/">🛟 Deu erro? Caminho das pedras</a> · <a href="../">Trilha completa</a> O Studio Exemplo é fictício.</footer>
+</main>
+
+<script src="../_comum/receita.js"></script>
+</body>
+</html>

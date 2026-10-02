@@ -1,0 +1,26 @@
+VÍDEO DO MEU BOT — 3B Connect, Receita 06
+
+Um vídeo vertical de 20 segundos (Reels, Status, Stories) apresentando o seu bot.
+
+O ÚNICO ARQUIVO QUE VOCÊ EDITA: meu-video.json
+  negocio    nome do seu negócio
+  bot        nome do seu bot
+  telegram   o @ do bot (até 32 letras, é o limite do Telegram)
+  chamada    frase de abertura (até uns 40 letras)
+  pergunta   pergunta de cliente de exemplo (curta)
+  resposta   resposta do bot de exemplo (até uns 160 letras)
+  item1..3   o que o bot faz (até uns 45 letras cada)
+  final      frase final
+  cor        cor principal, no formato #RRGGBB
+  fundo      cor de fundo, no formato #RRGGBB (escura fica melhor)
+
+Regras do JSON: mantenha as aspas, os dois-pontos e as vírgulas como estão.
+Troque só o texto ENTRE as aspas da direita.
+
+PARA GERAR O VÍDEO (no terminal aberto nesta pasta):
+  npx hyperframes@0.8.104 render --strict-variables --variables-file meu-video.json --output meu-video.mp4
+
+(O --strict-variables faz a ferramenta PARAR se você errar o nome de um campo,
+em vez de gerar um vídeo com o texto de exemplo.)
+
+Não mexa no index.html, a menos que queira mudar a animação (veja a Missão 6 da receita).

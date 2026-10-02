@@ -1,0 +1,21 @@
+EXEMPLO FICTÍCIO — troque pelas perguntas que seus clientes mais fazem.
+
+PERGUNTAS FREQUENTES
+
+Quais dias vocês atendem?
+De terça a sábado, das 9h às 18h. Não abrimos domingo, segunda e feriados.
+
+Onde fica o estúdio?
+Rua das Flores, 123, Centro. Há estacionamento conveniado na mesma rua.
+
+Posso levar roupas para trocar?
+Sim. No ensaio individual, até 3 trocas. No de família, até 2 trocas por pessoa.
+
+Pode levar animal de estimação?
+Sim, no ensaio de família, desde que um adulto fique responsável por ele.
+
+As fotos vêm em que formato?
+Arquivo digital em alta resolução, enviado por link para download.
+
+Vocês fazem casamento ou evento?
+Não. Fazemos só os ensaios listados em servicos.txt.

@@ -1,0 +1,17 @@
+MEU PRIMEIRO BOT — 3B Connect, Receita 01
+
+O que tem nesta pasta:
+
+  meu_bot.py             O bot. Você não precisa mexer nele.
+  segredos.exemplo.txt   Modelo do arquivo de chaves. Copie e chame de segredos.txt.
+  persona.txt            A personalidade e as regras do bot. Este você PODE editar.
+
+Para ligar:
+  Windows:      python meu_bot.py
+  Mac/Linux:    python3 meu_bot.py
+
+Para desligar: Ctrl + C na janela do terminal.
+
+Regra de ouro: nunca mande o segredos.txt para ninguém, nem em print.
+
+O passo a passo completo está na página da Receita 01.

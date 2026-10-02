@@ -1,0 +1,12 @@
+KIT DA RECEITA 03 — 3B Connect
+
+Copie estes arquivos para dentro da sua pasta meu-primeiro-bot e aceite substituir:
+
+  meu_bot.py        Versão 2: com caderninho (memória) e travas de privacidade.
+  memoria.txt       NOVO: os campos que o bot pode anotar sobre cada cliente.
+  preparar_vps.sh   Atualizado: deixa o bot gravar a memória na VPS.
+
+NÃO substitua o seu persona.txt nem o seu segredos.txt (este kit nem traz esses dois).
+
+A memória fica em dados/memoria.sqlite3. É dado pessoal dos seus clientes:
+não mande para ninguém.

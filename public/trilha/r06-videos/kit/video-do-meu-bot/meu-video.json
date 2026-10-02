@@ -1,0 +1,14 @@
+{
+  "negocio": "Studio Exemplo",
+  "bot": "Lia",
+  "telegram": "@studio_exemplo_bot",
+  "chamada": "Agende seu ensaio a qualquer hora",
+  "pergunta": "Vocês abrem sábado?",
+  "resposta": "Abrimos sim! De terça a sábado, das 9h às 18h. Quer que eu peça um horário para a equipe? 📸",
+  "item1": "Tira dúvidas sobre os ensaios",
+  "item2": "Lembra de você na próxima conversa",
+  "item3": "Pede seu horário para a equipe confirmar",
+  "final": "Chame no Telegram",
+  "cor": "#7C4DEB",
+  "fundo": "#12101C"
+}

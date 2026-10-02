@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bot ligado 24 horas</title>
+<meta name="description" content="Receita 02 da 3B Connect: o seu bot rodando numa VPS, respondendo mesmo com o seu computador desligado.">
+<link rel="stylesheet" href="../_comum/receita.css">
+</head>
+<body data-receita="r02">
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">3B Connect · Receita 02</span>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <span class="progress-label" id="barLabel">0 de 7</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="hero">
+  <span class="status">Versão 1 · em validação</span>
+  <div class="crew">
+    <img src="../_comum/img/faisca.png" alt="Faísca, robô amarelo">
+    <img src="../_comum/img/pulso.png" alt="Pulso, robô violeta">
+    <img src="../_comum/img/terra.png" alt="Terra, robô verde">
+  </div>
+  <h1>Seu bot ligado 24 horas, mesmo com o PC desligado</h1>
+  <p class="lead">Você vai alugar um computador pequeno na internet (a VPS), mandar a pasta do seu bot para lá e rodar um script. Depois disso, o bot atende de madrugada, no fim de semana e até depois de uma queda de energia.</p>
+  <div class="facts">
+    <div class="fact"><b>45–60 min</b><span>a maior parte é esperar</span></div>
+    <div class="fact"><b>7 missões</b><span>uma vitória por vez</span></div>
+    <div class="fact"><b>Plano mensal</b><span>a VPS mais simples já basta</span></div>
+  </div>
+</section>
+
+<div class="say faisca">
+  <img src="../_comum/img/faisca-rosto.png" alt="">
+  <div class="bubble"><b class="who">FAÍSCA</b>
+    <p>Esta é a receita que transforma um teste num serviço de verdade. Quando terminar, você pode desligar o computador e ir dormir, e o bot continua atendendo. 🌙</p>
+  </div>
+</div>
+<div class="say terra">
+  <img src="../_comum/img/terra-rosto.png" alt="">
+  <div class="bubble"><b class="who">TERRA</b>
+    <p><strong>Antes de começar:</strong> você precisa ter terminado a <a href="../r01-bot-telegram-no-pc/">Receita 01</a>, com o bot respondendo no seu PC. Vamos levar aquela mesma pasta para o servidor.</p>
+  </div>
+</div>
+
+<div class="os-pick">
+  <div><b>Qual computador você está usando?</b><br><span style="color:var(--muted);font-size:15px">Só muda o jeito de abrir o terminal. Na VPS é tudo igual.</span></div>
+  <div class="os-switch" role="group" aria-label="Sistema operacional">
+    <button type="button" data-set-os="win" aria-pressed="true">Windows</button>
+    <button type="button" data-set-os="mac" aria-pressed="false">Mac</button>
+    <button type="button" data-set-os="linux" aria-pressed="false">Linux</button>
+  </div>
+</div>
+
+<!-- MISSÃO 0 -->
+<section class="mission" id="m0">
+  <header><div class="num">0</div><div><h2>O que é uma VPS</h2><div class="meta">3 min de leitura</div></div></header>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p>Uma VPS é um <strong>computador alugado que nunca desliga</strong>, guardado num prédio cheio de ar-condicionado. Ele não tem tela nem mouse. Você conversa com ele pelo terminal, do jeito que aprendeu na Receita 01.</p>
+    </div>
+  </div>
+
+  <div class="flow">
+    <span>📱 Cliente manda<br>mensagem</span><em>→</em>
+    <span>✈️ Telegram</span><em>→</em>
+    <span>☁️ VPS<br><code>meu_bot.py</code></span><em>→</em>
+    <span>🧠 IA</span>
+  </div>
+  <p>O caminho é o mesmo da Receita 01. Só muda o computador do meio: sai o seu PC e entra a VPS.</p>
+
+  <h3 style="margin-top:18px">Dois lugares, dois terminais</h3>
+  <p>Nesta receita você vai digitar comandos em <strong>dois lugares diferentes</strong>. Cada comando vem com uma etiqueta dizendo onde rodar:</p>
+  <p><span class="where pc">no seu PC</span> &nbsp; <span class="where vps">na VPS</span></p>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>Olhe a etiqueta antes de colar. Rodar um comando no lugar errado é o tropeço mais comum desta receita, e é inofensivo: na pior das hipóteses aparece "comando não encontrado".</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="0"> Entendi: VPS é um PC alugado que nunca desliga. Vou olhar as etiquetas 💻 e ☁️.</label>
+</section>
+
+<!-- MISSÃO 1 -->
+<section class="mission" id="m1">
+  <header><div class="num">1</div><div><h2>Contrate a VPS</h2><div class="meta">10 min · no site do provedor</div></div></header>
+
+  <ol class="steps">
+    <li><b>Escolha um provedor de VPS.</b> Hostinger, DigitalOcean, Hetzner e Contabo são exemplos conhecidos. A 3B não recebe nada por indicar nenhum deles.</li>
+    <li><b>Escolha o plano mais simples</b> que tenha pelo menos <strong>1 GB de memória (RAM)</strong>. O bot é leve: o plano de entrada sobra.</li>
+    <li><b>Na hora de escolher o sistema, marque <code>Ubuntu 24.04</code></b> (pode aparecer como "Ubuntu 24.04 LTS"). Sem painel de controle, sem aplicativo extra: só o sistema.</li>
+    <li><b>Defina uma senha forte para o usuário <code>root</code></b> e guarde num gerenciador de senhas.</li>
+    <li><b>Espere a VPS ficar pronta e anote o endereço IP</b>, quatro números separados por pontos.
+      <div class="ill" role="img" aria-label="Ilustração genérica de painel de provedor mostrando VPS ativa com Ubuntu 24.04 e endereço IP">
+        <div class="tip"><img src="../_comum/img/pulso-rosto.png" alt="">Anote este número!</div>
+        <div class="win"><div class="win-top"><i></i><i></i><i></i> Painel do provedor · Minhas VPS</div><div class="win-body">
+          <div class="limit"><span>Status</span><span class="val" style="font-size:15px">● Ativa</span></div>
+          <div class="limit"><span>Sistema</span><span>Ubuntu 24.04 LTS</span></div>
+          <div class="limit glow"><span>Endereço IP</span><span class="val">203.0.113.25</span></div>
+          <div class="limit"><span>Usuário</span><span><code>root</code></span></div>
+        </div></div>
+      </div>
+      <p style="font-size:15px;color:var(--muted)">O IP do exemplo, <code>203.0.113.25</code>, é um número reservado para documentação. O seu será outro. Em todos os comandos abaixo, troque <code>SEU_IP</code> pelo seu número.</p>
+    </li>
+  </ol>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>IP + senha do root = <strong>chave mestra do servidor</strong>. Mesma regra do token: não mande em grupo, não poste print, não cole em chat de IA.</p>
+    </div>
+  </div>
+
+  <label class="check"><input type="checkbox" data-mission="1"> Tenho uma VPS com Ubuntu 24.04, o IP anotado e a senha do root guardada.</label>
+</section>
+
+<!-- MISSÃO 2 -->
+<section class="mission" id="m2">
+  <header><div class="num">2</div><div><h2>Entre na VPS pelo terminal</h2><div class="meta">5 min · o momento "uau, estou dentro"</div></div></header>
+
+  <ol class="steps">
+    <li><b>Abra o terminal do seu PC.</b>
+      <span data-os="win">Tecla <kbd>⊞ Windows</kbd>, digite <code>terminal</code>, <kbd>Enter</kbd>.</span>
+      <span data-os="mac"><kbd>⌘</kbd> + <kbd>Espaço</kbd>, digite <code>Terminal</code>, <kbd>Enter</kbd>.</span>
+      <span data-os="linux"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>.</span>
+    </li>
+    <li><b>Cole o comando abaixo, troque <code>SEU_IP</code> pelo seu número e aperte <kbd>Enter</kbd>:</b>
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="say pulso" style="margin:10px 0">
+        <img src="../_comum/img/pulso-rosto.png" alt="">
+        <div class="bubble"><b class="who">PULSO</b><p><code>ssh</code> é o "telefone" que liga o seu terminal ao terminal da VPS. Ele já vem instalado no Windows 10/11, no Mac e no Linux.</p></div>
+      </div>
+    </li>
+    <li><b>Na primeira vez, ele pergunta se você confia no servidor.</b> Digite <code>yes</code> e aperte <kbd>Enter</kbd>.
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span>exemplo · o código do seu servidor será outro</span></div><pre><span class="d">The authenticity of host '203.0.113.25' can't be established.
+ED25519 key fingerprint is SHA256:...
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</span> <span class="t">yes</span></pre></div>
+    </li>
+    <li><b>Digite a senha do root e aperte <kbd>Enter</kbd>.</b>
+      <div class="guard"><div><strong>A senha não aparece enquanto você digita.</strong> Nem bolinhas, nem asteriscos. É proposital. Digite com calma (ou cole) e aperte <kbd>Enter</kbd>.</div></div>
+      <div class="see">Um texto de boas-vindas do Ubuntu e, no fim, uma linha parecida com <code>root@nome-da-vps:~#</code>. Esse <code>#</code> quer dizer: você está dentro da VPS.</div>
+    </li>
+  </ol>
+
+  <details class="oops"><summary>"Permission denied, please try again"</summary>
+    <div>Senha errada. Confira maiúsculas e minúsculas. Se esqueceu, quase todo provedor tem um botão "redefinir senha do root" no painel.</div>
+  </details>
+  <details class="oops"><summary>"Connection timed out" ou fica parado sem responder</summary>
+    <div>Ou o IP está digitado errado, ou a VPS ainda está ligando. Confira o número no painel e espere 2 minutos.</div>
+  </details>
+  <details class="oops"><summary>"WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!"</summary>
+    <div>Acontece quando você reinstala a VPS e ela ganha um "RG" novo. No seu PC, rode <code>ssh-keygen -R SEU_IP</code> e tente entrar de novo.</div>
+  </details>
+
+  <div class="say faisca">
+    <img src="../_comum/img/faisca-rosto.png" alt="">
+    <div class="bubble"><b class="who">FAÍSCA</b><p>Você acabou de controlar um computador em outro lugar do país só digitando. Isso é o que administradores de sistema fazem o dia todo! 😎</p></div>
+  </div>
+
+  <p style="font-size:16px">Para sair da VPS, digite <code>exit</code>. Para voltar, repita o <code>ssh</code>. <strong>Saia agora</strong>: a próxima missão começa no seu PC.</p>
+
+  <label class="check"><input type="checkbox" data-mission="2"> Entrei na VPS e vi o root@...#. Depois saí com exit.</label>
+</section>
+
+<!-- MISSÃO 3 -->
+<section class="mission" id="m3">
+  <header><div class="num">3</div><div><h2>Mande a pasta do bot para a VPS</h2><div class="meta">10 min</div></div></header>
+
+  <ol class="steps">
+    <li><b>Desligue o bot no seu PC</b> com <kbd>Ctrl</kbd> + <kbd>C</kbd> na janela onde ele está rodando.
+      <div class="guard"><div><strong>Um bot, um lugar.</strong> Se o bot ficar ligado no PC e na VPS ao mesmo tempo, os dois brigam pelas mensagens e o Telegram recusa um deles.</div></div>
+    </li>
+    <li><b>Baixe o script da receita:</b> <a href="kit/preparar_vps.sh" download>preparar_vps.sh</a> e <strong>coloque dentro da pasta <code>meu-primeiro-bot</code></strong>, junto com o <code>meu_bot.py</code>.
+      <div class="ill" role="img" aria-label="Ilustração: pasta meu-primeiro-bot com o preparar_vps.sh novo ao lado dos outros arquivos">
+        <div class="tip"><img src="../_comum/img/pulso-rosto.png" alt="">O novo mora junto com os outros</div>
+        <div class="win"><div class="win-top"><i></i><i></i><i></i> meu-primeiro-bot</div>
+          <div class="files"><div>📄 LEIA-ME.txt</div><div>🐍 meu_bot.py</div><div>📄 persona.txt</div><div class="glow" style="padding:2px 4px">⚙️ <b>preparar_vps.sh</b> &nbsp;<small style="color:var(--muted)">novo</small></div><div>🔒 segredos.txt</div><div>📄 segredos.exemplo.txt</div></div>
+        </div>
+      </div>
+    </li>
+    <li><b>Abra o terminal do PC na pasta que <em>contém</em> a <code>meu-primeiro-bot</code></b>, ou seja, um nível acima. Se ela está na Área de Trabalho, abra o terminal na Área de Trabalho:
+      <div data-os="win">Abra a <strong>Área de Trabalho</strong> no Explorador de Arquivos, clique na barra de endereço, digite <code>cmd</code> e <kbd>Enter</kbd>, o mesmo truque da Receita 01.</div>
+      <div data-os="mac">No Finder, botão direito na pasta <strong>Mesa</strong> (Desktop) → <em>Serviços</em> → <em>Novo Terminal na Pasta</em>.</div>
+      <div data-os="linux">Abra a Área de Trabalho no gerenciador de arquivos → botão direito num espaço vazio → <em>Abrir no terminal</em>.</div>
+    </li>
+    <li><b>Mande a pasta inteira para a VPS</b> (troque <code>SEU_IP</code>):
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r meu-primeiro-bot root@SEU_IP:/root/</pre><button type="button" data-copy>Copiar</button></div>
+      Ele pede a senha do root (de novo, invisível).
+      <div class="see">Uma linha por arquivo, cada uma terminando em <code>100%</code>.</div>
+    </li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b>
+      <p><code>scp</code> é o primo do <code>ssh</code>: em vez de conversar, ele <strong>carrega arquivos</strong>. O <code>-r</code> quer dizer "a pasta inteira, com tudo dentro".</p>
+    </div>
+  </div>
+
+  <details class="oops"><summary>"No such file or directory" com o nome meu-primeiro-bot</summary>
+    <div>O terminal não está na pasta que contém a <code>meu-primeiro-bot</code>. Rode <code data-os="win">dir</code><code data-os="mac linux">ls</code> e confira se ela aparece na lista. Se não aparecer, repita o passo 3.</div>
+  </details>
+  <details class="oops"><summary>Esqueci o segredos.txt ou mudei a persona depois</summary>
+    <div>Sem problema: arrume no PC e rode o mesmo <code>scp</code> de novo. Ele substitui os arquivos. Depois rode a Missão 4 de novo também.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="3"> A pasta chegou na VPS (vi os 100%).</label>
+</section>
+
+<!-- MISSÃO 4 -->
+<section class="mission win" id="m4">
+  <header><div class="num">4</div><div><h2>Rode a preparação 🎉</h2><div class="meta">5 min · um comando faz tudo</div></div></header>
+
+  <ol class="steps">
+    <li><b>Entre na VPS de novo:</b>
+      <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>ssh root@SEU_IP</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Rode o script:</b>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>bash /root/meu-primeiro-bot/preparar_vps.sh</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see">Cinco etapas do Pulso e, no fim, a Terra dizendo que o serviço está rodando:</div>
+      <div class="term" id="saida-real"><div class="bar"><i></i><i></i><i></i><span>saída real do script · testada num Ubuntu 24.04 limpo e numa VPS real · o nome do seu bot será outro</span></div><pre><span class="f">🟡 Faísca: Vamos deixar seu bot ligado 24 horas! São 5 etapas, uns 3 minutos.</span>
+
+<span class="p">🟣 Pulso: 1/5 Atualizando o servidor e instalando o Python...</span>
+
+<span class="p">🟣 Pulso: 2/5 Criando o usuário &#x27;bot&#x27;, que só sabe rodar o bot...</span>
+
+<span class="p">🟣 Pulso: 3/5 Copiando o bot para /home/bot/meu-primeiro-bot...</span>
+
+<span class="p">🟣 Pulso: 4/5 Instalando a peça que conversa com a IA (pode levar 1 minuto)...</span>
+
+<span class="p">🟣 Pulso: 5/5 Criando o serviço que liga o bot sozinho, até depois de reiniciar...</span>
+
+<span class="t">🟢 Terra: Tudo certo! O serviço &#x27;meu-bot&#x27; está rodando.</span>
+
+<span class="d">   Últimas falas do bot:</span>
+
+<span class="p">   │ 🟣 Pulso: Conferindo o token com o Telegram...</span>
+<span class="t">   │ 🟢 Terra: Tudo certo! Seu bot @meu_teste_bot está ligado e ouvindo.</span>
+<span class="p">   │ 🟣 Pulso: Modo CÉREBRO: vou responder com IA seguindo o persona.txt.</span>
+<span class="f">   │ 🟡 Faísca: Abra o Telegram, procure @meu_teste_bot e mande um oi!</span>
+
+<span class="f">🟡 Faísca: Agora feche esta janela, desligue o PC se quiser e mande</span>
+<span class="f">   uma mensagem para o bot pelo celular. Ele continua respondendo!</span></pre></div>
+    </li>
+  </ol>
+
+  <div class="say pulso">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO · O QUE O SCRIPT FEZ</b>
+      <p><strong>1.</strong> Atualizou o servidor e instalou o Python. <strong>2.</strong> Criou um usuário chamado <code>bot</code>, que não tem poder nenhum além de rodar o bot. <strong>3.</strong> Copiou seus arquivos para a casa dele e trancou o <code>segredos.txt</code> só para ele. <strong>4.</strong> Instalou a peça da IA. <strong>5.</strong> Criou um <em>serviço</em>: uma instrução para o servidor ligar o bot sozinho, religar se ele cair e ligar de novo depois de reiniciar.</p>
+    </div>
+  </div>
+
+  <details class="oops"><summary>A Terra disse "O serviço foi criado, mas o bot não ficou de pé"</summary>
+    <div>O próprio log mostra o motivo, na fala da Terra que vem do bot (as mesmas mensagens da Receita 01). O caso mais comum é <strong>"Já existe outra cópia deste bot ligada"</strong>: o bot continua ligado no seu PC. Desligue lá e espere 15 segundos, que o servidor religa sozinho.</div>
+  </details>
+  <details class="oops"><summary>"Este script precisa rodar como root"</summary>
+    <div>Você entrou com outro usuário. Rode <code>sudo bash /root/meu-primeiro-bot/preparar_vps.sh</code>, ou entre com <code>ssh root@SEU_IP</code>.</div>
+  </details>
+  <details class="oops"><summary>"bash: /root/meu-primeiro-bot/preparar_vps.sh: No such file or directory"</summary>
+    <div>Duas causas possíveis. <strong>(1)</strong> O script não foi junto na pasta: volte à Missão 3, passo 2, porque ele precisa estar <strong>dentro</strong> da <code>meu-primeiro-bot</code> antes do <code>scp</code>. <strong>(2)</strong> Você já rodou a preparação com sucesso: ela apaga a pasta de entrega no fim, de propósito. Mande a pasta de novo com o <code>scp</code> e repita.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="4"> A Terra disse "Tudo certo! O serviço 'meu-bot' está rodando."</label>
+</section>
+
+<!-- MISSÃO 5 -->
+<section class="mission" id="m5">
+  <header><div class="num">5</div><div><h2>A prova de fogo</h2><div class="meta">5 min · desligue tudo e confira</div></div></header>
+
+  <ol class="steps">
+    <li><b>Feche o terminal.</b> Pode fechar a janela inteira.</li>
+    <li><b>Se quiser, desligue o computador.</b> É sério. 🙂</li>
+    <li><b>Pelo celular, mande uma mensagem para o seu bot.</b>
+      <div class="see">Ele responde normalmente, com a personalidade do seu <code>persona.txt</code>.</div>
+      <div class="ill" role="img" aria-label="Ilustração: celular conversando com o bot às 3 da manhã, com o computador desligado">
+        <div class="tip"><img src="../_comum/img/faisca-rosto.png" alt="">3h da manhã e ele atendendo!</div>
+        <div class="win"><div class="chat-head"><div class="av">✨</div><div><b>Atendimento Studio Ana</b><small>bot · online</small></div></div>
+        <div class="msgs">
+          <div class="msg me">oi, vocês abrem sábado? <small style="opacity:.6">03:12</small></div>
+          <div class="msg glow">Abrimos sim! De terça a sábado, das 9h às 18h. Quer que eu anote um horário para a equipe confirmar? 📸 <small style="opacity:.6">03:12</small></div>
+        </div></div>
+      </div>
+    </li>
+    <li><b>Teste de queda de energia (opcional, mas recomendado):</b> entre na VPS e reinicie o servidor de propósito.
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>reboot</pre><button type="button" data-copy>Copiar</button></div>
+      A conexão cai, e é esperado. Espere 1 minuto e mande outra mensagem pelo celular.
+      <div class="see">O bot volta a responder sozinho, sem você fazer nada.</div>
+    </li>
+  </ol>
+
+  <label class="check"><input type="checkbox" data-mission="5"> O bot respondeu com meu PC desligado (e depois do reboot).</label>
+</section>
+
+<!-- MISSÃO 6 -->
+<section class="mission" id="m6">
+  <header><div class="num">6</div><div><h2>Tranque as portas</h2><div class="meta">3 min · segurança básica</div></div></header>
+
+  <div class="say terra">
+    <img src="../_comum/img/terra-rosto.png" alt="">
+    <div class="bubble"><b class="who">TERRA</b>
+      <p>O seu bot <strong>busca</strong> as mensagens no Telegram. Ninguém precisa "entrar" na VPS para falar com ele. Então podemos fechar todas as portas de entrada, menos a do <code>ssh</code>, que é a porta por onde <em>você</em> entra.</p>
+    </div>
+  </div>
+
+  <div class="guard"><div><strong>Sua VPS já tem site ou outros sistemas?</strong> Rode primeiro só o <code>ufw status</code> (passo 3). Se já aparecer <code>Status: active</code>, o firewall já está cuidado: <strong>pule esta missão</strong> e não mexa nas regras, para não derrubar o que já funciona.</div></div>
+
+  <ol class="steps">
+    <li><b>Libere a porta do ssh</b> (sempre primeiro!):
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>ufw allow OpenSSH</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Ligue o firewall:</b>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>ufw --force enable</pre><button type="button" data-copy>Copiar</button></div>
+    </li>
+    <li><b>Confira:</b>
+      <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>ufw status</pre><button type="button" data-copy>Copiar</button></div>
+      <div class="see"><code>Status: active</code> e uma linha com <code>OpenSSH ALLOW Anywhere</code>.</div>
+    </li>
+  </ol>
+
+  <div class="guard"><div><strong>A ordem importa.</strong> Se você ligar o firewall sem liberar o ssh, ele tranca você do lado de fora. Se acontecer, use o "console" ou "terminal web" do painel do provedor para entrar e rodar o passo 1.</div></div>
+
+  <details class="oops"><summary>"ufw: command not found"</summary>
+    <div>Algumas imagens de Ubuntu vêm sem ele. Instale com <code>apt-get install -y ufw</code> e repita os passos.</div>
+  </details>
+
+  <label class="check"><input type="checkbox" data-mission="6"> Firewall ativo com o OpenSSH liberado.</label>
+</section>
+
+<!-- MISSÃO 7 -->
+<section class="mission" id="m7">
+  <header><div class="num">7</div><div><h2>Seus comandos de bolso</h2><div class="meta">5 min · para o dia a dia</div></div></header>
+
+  <p>Guarde esta lista. São os únicos comandos de que você vai precisar para cuidar do bot (todos <span class="where vps">na VPS</span>):</p>
+
+  <h3 style="margin-top:14px">O bot está bem?</h3>
+  <div class="cmd vps"><pre>systemctl status meu-bot</pre><button type="button" data-copy>Copiar</button></div>
+  <div class="see"><code>Active: active (running)</code> em verde. Aperte <kbd>Q</kbd> para sair da tela.</div>
+
+  <h3 style="margin-top:14px">O que ele está fazendo agora?</h3>
+  <div class="cmd vps"><pre>journalctl -u meu-bot -f</pre><button type="button" data-copy>Copiar</button></div>
+  <p style="font-size:16px">Mostra ao vivo as mesmas falas que você via no terminal do PC: "📩 fulano mandou…". Para sair, <kbd>Ctrl</kbd> + <kbd>C</kbd>.</p>
+  <div class="say pulso" style="margin:8px 0">
+    <img src="../_comum/img/pulso-rosto.png" alt="">
+    <div class="bubble"><b class="who">PULSO</b><p>Aqui o <kbd>Ctrl</kbd> + <kbd>C</kbd> só fecha a <em>janela de observação</em>. O bot continua ligado no servidor. Pode apertar sem medo.</p></div>
+  </div>
+
+  <h3 style="margin-top:14px">Mudei a persona ou a chave</h3>
+  <ol class="steps">
+    <li><b>Edite no seu PC</b> (o <code>persona.txt</code> ou o <code>segredos.txt</code>), como antes.</li>
+    <li><b>Mande a pasta de novo</b> <span class="where pc">no seu PC</span>
+      <div class="cmd"><pre>scp -r meu-primeiro-bot root@SEU_IP:/root/</pre><button type="button" data-copy>Copiar</button></div></li>
+    <li><b>Rode a preparação de novo</b> <span class="where vps">na VPS</span>
+      <div class="cmd vps"><pre>bash /root/meu-primeiro-bot/preparar_vps.sh</pre><button type="button" data-copy>Copiar</button></div>
+      É seguro repetir. Ele atualiza os arquivos e religa o bot.</li>
+  </ol>
+
+  <h3 style="margin-top:14px">Desligar e ligar</h3>
+  <div class="cmd vps"><pre>systemctl stop meu-bot</pre><button type="button" data-copy>Copiar</button></div>
+  <div class="cmd vps"><pre>systemctl start meu-bot</pre><button type="button" data-copy>Copiar</button></div>
+  <p style="font-size:16px">Quer voltar a testar no PC? Primeiro <code>stop</code> na VPS. Lembre: um bot, um lugar.</p>
+
+  <label class="check"><input type="checkbox" data-mission="7"> Rodei o status e vi o "active (running)".</label>
+</section>
+
+<section class="mission" id="final">
+  <header><div class="num">✓</div><div><h2>Teste de conclusão</h2></div></header>
+  <p>Você concluiu a Receita 02 quando:</p>
+  <ul class="tick">
+    <li>o bot responde pelo celular com o seu PC desligado;</li>
+    <li>o bot volta sozinho depois de um <code>reboot</code>;</li>
+    <li>o <code>ufw status</code> mostra o firewall ativo;</li>
+    <li>você consegue explicar a diferença entre 💻 e ☁️ e sabe rodar o <code>status</code> e o <code>journalctl</code>.</li>
+  </ul>
+
+  <h3 style="margin-top:22px">Se aparecer → faça isto</h3>
+  <table class="fix">
+    <tr><th>Se aparecer</th><th>Faça isto</th></tr>
+    <tr><td>Permission denied</td><td>Senha do root errada. Redefina no painel se precisar.</td></tr>
+    <tr><td>Connection timed out</td><td>IP errado ou VPS ligando. Confira no painel.</td></tr>
+    <tr><td>REMOTE HOST IDENTIFICATION HAS CHANGED</td><td>No PC: <code>ssh-keygen -R SEU_IP</code>.</td></tr>
+    <tr><td>Já existe outra cópia deste bot ligada</td><td>Desligue o bot do PC. O servidor religa em 15 s.</td></tr>
+    <tr><td>Active: activating (auto-restart)</td><td>O bot está caindo e voltando. Veja o motivo com <code>journalctl -u meu-bot -n 20</code>.</td></tr>
+    <tr><td>O bot parou de responder do nada</td><td><code>systemctl status meu-bot</code>; se a VPS estiver desligada, ligue pelo painel.</td></tr>
+  </table>
+
+  <h3 style="margin-top:22px">Checklist</h3>
+  <ul class="tick">
+    <li>Senha do root num gerenciador de senhas, nunca em print.</li>
+    <li>Bot desligado no PC (um bot, um lugar).</li>
+    <li>Limite de gasto da IA continua definido (Receita 01, Missão 6).</li>
+    <li>Firewall ativo.</li>
+    <li>Lista de comandos de bolso salva.</li>
+  </ul>
+</section>
+
+<div class="say faisca">
+  <img src="../_comum/img/faisca-rosto.png" alt="">
+  <div class="bubble"><b class="who">FAÍSCA · PRÓXIMO PASSO</b>
+    <p>Hoje o seu bot esquece tudo quando reinicia, e só lembra das últimas 10 mensagens. Na <a href="../r03-memoria/"><strong>Receita 03</strong></a> ele ganha uma memória de verdade: lembrar o nome do cliente, o que ele já pediu e o que <em>nunca</em> deve guardar. 🧠</p>
+  </div>
+</div>
+
+<footer>3B Connect · Receita 02 · EM VALIDAÇÃO · versão 1. Testada em Ubuntu e numa VPS real; ainda não no Windows.<br>Faísca, Pulso e Terra são personagens, não pessoas.<br><a href="../caminho-das-pedras/">🛟 Deu erro? Caminho das pedras</a> · <a href="../">Trilha completa</a></footer>
+</main>
+
+<script src="../_comum/receita.js"></script>
+</body>
+</html>
